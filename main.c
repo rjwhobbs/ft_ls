@@ -46,17 +46,13 @@ int main(int ac, char **av)
 	i = 1;
 
 
-	if (av[1][0] == '-')
-		while (i < ac)
-		{
-			process_flags(&av[i], &op);
-			i++;
-		}
+	while (i < ac)
+	{
+		process_flags(&av[i], &op);
+		i++;
+	}
 
 	ft_putnbr(op);
 
 	return (0);
 }
-
-
-iiiiiiiiiiii
