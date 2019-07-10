@@ -47,6 +47,8 @@ static int process_flags(char **av, char *op)
 	j = 0;
 	if (av[i][j] == '-')
 		j++;
+	else if (av[i][j] != '-')
+		return (0);
 	while ((av[i][j]) && isflag(av[i][j]))
 	{
 		if (av[i][j] == 'a' && !(*op & 1))
