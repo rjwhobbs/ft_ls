@@ -123,9 +123,7 @@ int main(int ac, char **av)
 	char **files;
 	char *op;
 
-	op = process_flags(&av);
-	ft_putendl(op);
-
-	
+	if (ac > 1)
+		ft_putendl(process_flags(&av));
 	return (0);
 }
