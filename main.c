@@ -1,6 +1,6 @@
 #include "libft/libft.h"
 
-static int process_flags(char **av, char *op);
+char *process_flags(char **av[]);
 static int	process_files(int ac, char **av, char ***files, int i);
 
 void errors(char op)
@@ -11,7 +11,7 @@ void errors(char op)
 	ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
 }
 
-int	process_args(int ac, char **av, char *op, char ***files)
+/* int	process_args(int ac, char **av, char *op, char ***files)
 {
 	int i;
 	int j;
@@ -29,7 +29,7 @@ int	process_args(int ac, char **av, char *op, char ***files)
 	if (i == -1)
 		return (-1);
 	return (0);
-}
+} */
 
 static int isflag(char c)
 {
@@ -37,7 +37,7 @@ static int isflag(char c)
 		return (1);
 	return (0);
 }
-
+/*
 static int process_flags(char **av, char *op)
 {
 	int i;
@@ -71,7 +71,7 @@ static int process_flags(char **av, char *op)
 		return (0);
 	}
 	return (0);
-}
+} */
 
 static int	process_files(int ac, char **av, char ***files, int i)
 {
@@ -93,20 +93,40 @@ static int	process_files(int ac, char **av, char ***files, int i)
 	}
 	return (i);
 }
+char *process_flags(char **av[])
+{
+	char *op;
+	char *op_position;
+	
+	op = ft_strnew(5);
+	op_position = op;
+	(*av)++;
+	if (**av && ***av == '-')
+	{
+		(**av)++;
+		while (**av && isflag(***av))
+		{
+			if (!ft_strchr(op_position, ***av))
+			{
+				*op = ***av;
+				op++;
+			}
+			(**av)++;
+		}
+	}
+	if (!***av)
+		return (op_position);
+	return (NULL);
+}
 
 int main(int ac, char **av)
 {
-	//char *flags;
 	char **files;
-	char op;
-	int i;
+	char *op;
 
-	op = 0;
-	i = 1;
-	process_args(ac, av, &op, &files);
-	ft_putnbr(op);
-	ft_nl();
-	while(*files)
-		ft_putendl(*files++);
+	op = process_flags(&av);
+	ft_putendl(op);
+
+	
 	return (0);
 }
