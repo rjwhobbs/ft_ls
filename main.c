@@ -110,7 +110,10 @@ char *process_flags(char **av[])
 				*op++ = ***av;
 			(**av)++;
 		}
-		(*av)++;
+		if (!***av)
+			(*av)++;
+		else if (***av)
+			errors(***av);
 	}
 	return (op_position);
 }
