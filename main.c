@@ -101,22 +101,18 @@ char *process_flags(char **av[])
 	op = ft_strnew(5);
 	op_position = op;
 	(*av)++;
-	if (**av && ***av == '-')
+	while (**av && ***av == '-')
 	{
 		(**av)++;
 		while (**av && isflag(***av))
 		{
 			if (!ft_strchr(op_position, ***av))
-			{
-				*op = ***av;
-				op++;
-			}
+				*op++ = ***av;
 			(**av)++;
 		}
+		(*av)++;
 	}
-	if (!***av)
-		return (op_position);
-	return (NULL);
+	return (op_position);
 }
 
 int main(int ac, char **av)
