@@ -66,7 +66,5 @@ int main(int ac, char **av)
 	}
 	else if (ac == 1)
 		ft_putstr("You have not given arguments.");
-	if (!*op)
-		ft_strdel(&op);
 	return (0);
 }
