@@ -3,14 +3,6 @@
 char *process_flags(char **av[]);
 //static int	process_files(int ac, char **av, char ***files, int i);
 
-void errors(char op)
-{
-	ft_putstr("ft_ls: illegal option -- ");
-	ft_putchar(op);
-	ft_nl();
-	ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
-}
-
 /* int	process_args(int ac, char **av, char *op, char ***files)
 {
 	int i;
@@ -28,48 +20,6 @@ void errors(char op)
 	i = process_files(ac, av, files, i);
 	if (i == -1)
 		return (-1);
-	return (0);
-} */
-
-// static int isflag(char c)
-// {
-// 	if (c == 'a' || c == 'l' || c == 'r' || c == 't' || c == 'R')
-// 		return (1);
-// 	return (0);
-// }
-/*
-static int process_flags(char **av, char *op)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if (av[i][j] == '-')
-		j++;
-	else if (av[i][j] != '-')
-		return (0);
-	while ((av[i][j]) && isflag(av[i][j]))
-	{
-		if (av[i][j] == 'a' && !(*op & 1))
-			*op += 1;
-		else if (av[i][j] == 'l' && !(*op & 2))
-			*op += 2;
-		else if (av[i][j] == 'r' && !(*op & 4))
-			*op += 4;
-		else if (av[i][j] == 't' && !(*op & 8))
-			*op += 8;
-		else if (av[i][j] == 'R' && !(*op & 16))
-			*op += 16;
-		j++;
-	}
-	if (!(av[i][j]))
-		return (1);
-	else 
-	{
-		errors(av[i][j]);
-		return (0);
-	}
 	return (0);
 } */
 
@@ -94,44 +44,29 @@ static int process_flags(char **av, char *op)
 // 	return (i);
 // }
 
-/*char *process_flags(char **av[])
-{
-	char *op;
-	char *op_position;
-	
-	op = ft_strnew(5);
-	op_position = op;
-	(*av)++;
-	while (op_position && **av && ***av == '-')
-	{
-		(**av)++;
-		if (***av == '-')
-			break ;
-		while (**av && isflag(***av))
-		{
-			if (!ft_strchr(op_position, ***av))
-				*op++ = ***av;
-			(**av)++;
-		}
-		if (!***av)
-			(*av)++;
-		else if (***av)
-			errors(***av);
-	}
-	return (op_position);
-}*/
 
 int main(int ac, char **av)
 {
 //	char **files;
 	char *op;
 
+	op = NULL;
 	if (ac > 1)
 	{
 		op = process_flags(&av);
-		if (op)
+		if (op && *op)
+		{
+			ft_putstr("Your current flags: ");
 			ft_putendl(op);
+		}
+		else if (!*op)
+			ft_putendl("You dont have any flags.");
+		else if (!op)
+			return (-1);
 	}
-
+	else if (ac == 1)
+		ft_putstr("You have not given arguments.");
+	if (!*op)
+		ft_strdel(&op);
 	return (0);
 }
