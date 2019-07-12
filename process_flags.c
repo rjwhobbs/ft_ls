@@ -2,10 +2,11 @@
 
 static void		errors(char op)
 {
-	ft_putstr("ft_ls: illegal option -- ");
-	ft_putchar(op);
-	ft_nl();
-	ft_putendl("usage: ft_ls [-Ralrt] [file ...]");
+	ft_putstr_fd("ft_ls: illegal option -- ", 2);
+	ft_putchar_fd(op, 2);
+	ft_putchar_fd('\n', 2);
+	ft_putendl_fd("usage: ft_ls [-Ralrt] [file ...]", 2);
+	exit (0);
 }
 
 static int		isflag(char c)
