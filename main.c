@@ -93,6 +93,7 @@ static int	process_files(int ac, char **av, char ***files, int i)
 	}
 	return (i);
 }
+
 char *process_flags(char **av[])
 {
 	char *op;
@@ -101,9 +102,11 @@ char *process_flags(char **av[])
 	op = ft_strnew(5);
 	op_position = op;
 	(*av)++;
-	while (**av && ***av == '-')
+	while (op_position && **av && ***av == '-')
 	{
 		(**av)++;
+		if (***av == '-')
+			break ;
 		while (**av && isflag(***av))
 		{
 			if (!ft_strchr(op_position, ***av))
@@ -124,6 +127,6 @@ int main(int ac, char **av)
 	char *op;
 
 	if (ac > 1)
-		ft_putendl(process_flags(&av));
+			ft_putendl(process_flags(&av));
 	return (0);
 }
