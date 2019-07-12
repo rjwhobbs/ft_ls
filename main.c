@@ -1,7 +1,7 @@
 #include "libft/libft.h"
 
 char *process_flags(char **av[]);
-static int	process_files(int ac, char **av, char ***files, int i);
+//static int	process_files(int ac, char **av, char ***files, int i);
 
 void errors(char op)
 {
@@ -31,12 +31,12 @@ void errors(char op)
 	return (0);
 } */
 
-static int isflag(char c)
-{
-	if (c == 'a' || c == 'l' || c == 'r' || c == 't' || c == 'R')
-		return (1);
-	return (0);
-}
+// static int isflag(char c)
+// {
+// 	if (c == 'a' || c == 'l' || c == 'r' || c == 't' || c == 'R')
+// 		return (1);
+// 	return (0);
+// }
 /*
 static int process_flags(char **av, char *op)
 {
@@ -73,28 +73,28 @@ static int process_flags(char **av, char *op)
 	return (0);
 } */
 
-static int	process_files(int ac, char **av, char ***files, int i)
-{
-	int j;
+// static int	process_files(int ac, char **av, char ***files, int i)
+// {
+// 	int j;
 
-	j = 0;
-	if (i < ac)
-	{
-		*files = (char **)malloc(sizeof(char *) * (ac - i + 1));
-		if (!*files)
-			return (-1);
-		while (i < ac)
-		{
-			files[0][j++] = ft_strdup(av[i++]);
-			if (files[0][j - 1] == NULL)
-				return (-1);
-		}
-		files[0][j] = NULL;
-	}
-	return (i);
-}
+// 	j = 0;
+// 	if (i < ac)
+// 	{
+// 		*files = (char **)malloc(sizeof(char *) * (ac - i + 1));
+// 		if (!*files)
+// 			return (-1);
+// 		while (i < ac)
+// 		{
+// 			files[0][j++] = ft_strdup(av[i++]);
+// 			if (files[0][j - 1] == NULL)
+// 				return (-1);
+// 		}
+// 		files[0][j] = NULL;
+// 	}
+// 	return (i);
+// }
 
-char *process_flags(char **av[])
+/*char *process_flags(char **av[])
 {
 	char *op;
 	char *op_position;
@@ -119,14 +119,19 @@ char *process_flags(char **av[])
 			errors(***av);
 	}
 	return (op_position);
-}
+}*/
 
 int main(int ac, char **av)
 {
-	char **files;
+//	char **files;
 	char *op;
 
 	if (ac > 1)
-			ft_putendl(process_flags(&av));
+	{
+		op = process_flags(&av);
+		if (op)
+			ft_putendl(op);
+	}
+
 	return (0);
 }
