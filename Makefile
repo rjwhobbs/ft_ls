@@ -1,8 +1,8 @@
 NAME = ft_ls
 
-SRC = main.c process_flags.c
+SRC = main.c process_args.c sort.c get_filenames.c count_files.c
 
-OBJ = main.o process_flags.o
+OBJ = main.o process_args.o sort.o get_filenames.o count_files.o
 
 CFLAGS = -Wall -Werror -Wextra
 LIB = libft/libft.a

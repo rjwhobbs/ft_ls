@@ -1,4 +1,4 @@
-#include "libft/libft.h"
+#include "ft_ls.h"
 
 int	process_args(char *av[], char **operations, char **files[]);
 
