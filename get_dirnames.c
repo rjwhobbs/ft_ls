@@ -1,35 +1,13 @@
 #include <dirent.h>
 #include "ft_ls.h"
 
-static char **dirnames(char *parentdir)
+static char	**error(char *dir)
 {
-	DIR				*dir;
-	int				n;
-	struct dirent	*file;
-	char			**dirs;
-	char			**temp;
-
-	n = count_files(dirname, mode);
-	files = (char **)malloc(sizeof(char *) * (n + 1));
-	temp = dirs;
-	dir = opendir(dirname);
-	if (dir == NULL)
-		return (NULL);
-	while ((file = readdir(dir)) != NULL)
-		if (file->d_type == DT_DIR) // This line is a key
-			if (file->d_name[0] != '.')
-			{
-				*dirs = ft_strdup(file->d_name);
-				*dirs = ft_strjoin(*dirs, "/");
-				dirs++
-			}
-	*dirs = NULL;
-	closedir(dir);
-	dirs = temp;
-	return (dirs);
+	ft_putstr_fd(dir, 2);
+	ft_putendl_fd("is not a valid directory", 2);
+	return (NULL);
 }
-
-static char **dirnames_all(char *parentdir)
+static char	**dirnames(char *parentdir)
 {
 	DIR				*dir;
 	int				n;
@@ -37,28 +15,47 @@ static char **dirnames_all(char *parentdir)
 	char			**dirs;
 	char			**temp;
 
-	n = count_dirs(paretdir, 'a');
+	n = count_files(parentdir, '-');
 	dirs = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = dirs;
-	dir = opendir(dirname);
-	if (dir == NULL)
-		return (NULL);
+	if ((dir = opendir(parentdir)) == NULL)
+		return (error(parentdir));
 	while ((file = readdir(dir)) != NULL)
-		if (file->d_type == DT_DIR) // This line is a key
-		{
-			*dirs = ft_strdup(file->d_name);
-			*dirs = ft_strjoin(*dirs, "/");
-			dirs++
-		}
+		if (file->d_type == DT_DIR)
+			if (file->d_name[0] != '.')
+				*dirs++ = ft_strjoin(ft_strdup(file->d_name), "/");
 	*dirs = NULL;
 	closedir(dir);
 	dirs = temp;
 	return (dirs);
 }
 
-char **get_dirnames(char *parentdir, int mode)
+static char	**dirnames_all(char *parentdir)
 {
-	if (mode = 'a')
+	DIR				*dir;
+	int				n;
+	struct dirent	*file;
+	char			**dirs;
+	char			**temp;
+
+	n = count_dirs(parentdir, 'a');
+	dirs = (char **)malloc(sizeof(char *) * (n + 1));
+	temp = dirs;
+	if ((dir = opendir(parentdir)) == NULL)
+		return (error(parentdir));
+	while ((file = readdir(dir)) != NULL)
+		if (file->d_type == DT_DIR)
+			if (!ft_strequ(file->d_name, ".") && !ft_strequ(file->d_name, ".."))
+				*dirs++ = ft_strjoin(ft_strdup(file->d_name), "/");
+	*dirs = NULL;
+	closedir(dir);
+	dirs = temp;
+	return (dirs);
+}
+
+char		**get_dirnames(char *parentdir, int mode)
+{
+	if (mode == 'a')
 		return (dirnames_all(parentdir));
 	else
 		return (dirnames(parentdir));

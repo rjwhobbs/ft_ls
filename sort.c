@@ -10,13 +10,6 @@ size_t	count_names(char **names)
 	return (i);
 }
 
-void	sort(char ***names)
-{
-	size_t n;
-
-	n = count_names(*names);
-	sort_lex(names, n);
-}
 
 static void	sort_lex(char ***names, int n)
 {
@@ -40,4 +33,12 @@ static void	sort_lex(char ***names, int n)
 		}
 		i = 0;
 	}
+}
+
+void	sort(char ***names)
+{
+	size_t n;
+
+	n = count_names(*names);
+	sort_lex(names, n);
 }
