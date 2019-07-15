@@ -9,7 +9,7 @@ char **get_filenames_d(char *dirname)
 	char			**files;
 	char			**temp;
 
-	n = count_files(dirname);
+	n = count_files(dirname, 'a');
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
 	dir = opendir(dirname);
