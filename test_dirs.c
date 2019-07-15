@@ -8,13 +8,13 @@ int main (int ac, char *av[])
 
 	if (ac == 2)
 	{
-		n = count_files(av[1]);
+		n = count_files(av[1], 'a');
 		ft_putnbr(n);
-		files = get_filenames(av[1]);
+		files = get_filenames(av[1], 'a');
 		files2 = files;
 		while (*files)
 			ft_putendl(*files++);
-		sort_lex(&files2, n);
+		sort(&files2);
 		ft_nl();
 		while (*files2)
 			ft_putendl(*files2++);
