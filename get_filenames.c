@@ -22,7 +22,7 @@ static char **filenames_all(char *dirname)
 	if ((dir = opendir(dirname)) == NULL)
 		return (error(dirname));
 	while ((file = readdir(dir)) != NULL)
-		*files++ = ft_strdup(file->d_name);
+		*files++ = ft_strjoin(dirname, file->d_name);
 	*files = NULL;
 	closedir(dir);
 	files = temp;
@@ -45,7 +45,7 @@ static char **filenames(char *dirname)
 	while ((file = readdir(dir)) != NULL)
 	{
 		if (file->d_name[0] != '.')
-			*files++ = ft_strdup(file->d_name);
+			*files++ = ft_strjoin(dirname, file->d_name);
 	}
 	*files = NULL;
 	closedir(dir);

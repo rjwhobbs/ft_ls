@@ -10,4 +10,7 @@ char	**get_dirnames(char *parentdir, int mode);
 void	sort(char ***names);
 void	print_R(char *dir);
 void	print_files(char **dir);
+void	print_files_l(char **files);
+void    strstr_del(char ***del_me);
+void    print_rec_test(char *dir);
 #endif

@@ -1,7 +1,7 @@
 #include <dirent.h>
 #include "ft_ls.h"
 
-void	print_R(char *dir)
+void	print_rec_test(char *dir)
 {
 	char **files;
 	char **dirs;
@@ -20,6 +20,8 @@ void	print_R(char *dir)
 		ft_nl();
 		print_files_l(files);
 		ft_nl();
+        // if (dirs)
+        //     tempdir = ft_strjoin(dir, *dirs++);
 		if (dirs)
 			while (*dirs)
 			{

@@ -23,7 +23,7 @@ static char	**dirnames(char *parentdir)
 	while ((file = readdir(dir)) != NULL)
 		if (file->d_type == DT_DIR)
 			if (file->d_name[0] != '.')
-				*dirs++ = ft_strjoin(ft_strdup(file->d_name), "/");
+				*dirs++ = ft_strjoin(file->d_name, "/");
 	*dirs = NULL;
 	closedir(dir);
 	dirs = temp;
@@ -46,7 +46,7 @@ static char	**dirnames_all(char *parentdir)
 	while ((file = readdir(dir)) != NULL)
 		if (file->d_type == DT_DIR)
 			if (!ft_strequ(file->d_name, ".") && !ft_strequ(file->d_name, ".."))
-				*dirs++ = ft_strjoin(ft_strdup(file->d_name), "/");
+				*dirs++ = ft_strjoin(file->d_name, "/");
 	*dirs = NULL;
 	closedir(dir);
 	dirs = temp;
