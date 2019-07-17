@@ -1,15 +1,27 @@
 #include "ft_ls.h"
 #include <unistd.h>
 
-int	main(void)
+int	main(int ac, char **av)
 {
+	char *ops;
+	char **files;
+	char **dirs;
 
-	// char **s2;
-
-
-	// s2 = get_filenames("./", '-');
-	// print_files_l(s2);
-	print_R("./");
-
+	process_args(av, &ops, &files);
+	if (ac)
+	{
+		while (*files)
+		{
+			if (ft_strchr(ops, 'R'))
+				print_R(*files);
+			else
+			{
+				//print_files()
+			}
+			
+			/* code */
+		}
+		
+	}
 	return (0);
 }
