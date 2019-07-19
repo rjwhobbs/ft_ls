@@ -1,7 +1,15 @@
 #include <dirent.h>
 #include "ft_ls.h"
 
-void	print_R(char *dir)
+static void	sort_print(char ***files, char ***dirs)
+{
+	if (*dirs)
+		sort(dirs);
+	if (*files)
+		sort(files);
+}
+
+void		print_R(char *dir)
 {
 	char **files;
 	char **dirs;
@@ -14,10 +22,7 @@ void	print_R(char *dir)
 		files = get_filenames(dir, 'a');
 		dirs = get_dirnames(dir, 'a');
 		temp2 = dirs;
-		if (dirs)
-			sort(&dirs);
-		if (files)
-			sort(&files);
+		sort_print(&files, &dirs);
 		ft_nl();
 		ft_putendl(dir);
 		ft_nl();
