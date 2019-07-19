@@ -1,6 +1,20 @@
 #include <dirent.h>
 #include "ft_ls.h"
 
+static void	printdirname(char *dir)
+{
+	char *last_slash;
+	char *temp;
+
+	temp = dir;
+	last_slash = ft_strrchr(dir, '/');
+	while(temp < last_slash)
+	{
+		ft_putchar(*temp++);
+	}
+	ft_putendl(":");
+}
+
 static void	sort_print(char ***files, char ***dirs, char *dir)
 {
 	if (*dirs)
@@ -8,7 +22,7 @@ static void	sort_print(char ***files, char ***dirs, char *dir)
 	if (*files)
 		sort(files);
 	ft_nl();
-	ft_putendl(dir);
+	printdirname(dir);
 	ft_putendl("I will be blocksize");
 	print_files_l(*files);
 }
