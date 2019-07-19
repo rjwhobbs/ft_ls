@@ -36,7 +36,7 @@ void	print_mode(struct stat filestat)
 void	print_link(struct stat filestat)
 {
 	ft_putnbr(filestat.st_nlink);
-	ft_putchar(' ');
+	ft_putchar('\t');
 
 }
 
@@ -59,10 +59,10 @@ void	print_group(struct stat filestat)
 
 }
 
-void	print_block(struct stat filestat)
+void	print_size(struct stat filestat)
 {
 	ft_putnbr(filestat.st_size);
-	ft_putchar(' ');
+	ft_putchar('\t');
 }
 
 void	print_time(struct stat filestat)
@@ -70,7 +70,7 @@ void	print_time(struct stat filestat)
 	struct timespec	time;
 	char			*str;
 
-	time = filestat.st_ctimespec;
+	time = filestat.st_mtimespec;
 	str = ft_strsub(ctime(&time.tv_sec), 4, 12);
 	ft_putstr(str);
 	ft_putstr(" ");
@@ -90,7 +90,7 @@ void	readstat(char *file)
 	print_link(filestat);
 	print_username(filestat);
 	print_group(filestat);
-	print_block(filestat);
+	print_size(filestat);
 	print_time(filestat);
 	print_name(file);
 

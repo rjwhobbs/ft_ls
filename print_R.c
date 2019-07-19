@@ -35,9 +35,5 @@ void	print_R(char *dir)
 		}
 		strstr_del(&temp2);
 		strstr_del(&temp3);
-		//free(*temp2);
-		//free(*temp3);
-		/*TODO: Free dirs here*/
-		// TODO: Free files here
 	}
 }

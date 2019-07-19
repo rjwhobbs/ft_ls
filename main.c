@@ -7,19 +7,15 @@ int	main(int ac, char **av)
 	char **files;
 	char **dirs;
 
+	dirs = NULL;
 	process_args(av, &ops, &files);
-	if (ac)
+	if (ac > 1)
 	{
 		while (*files)
 		{
 			if (ft_strchr(ops, 'R'))
 				print_R(*files);
-			else
-			{
-				//print_files()
-			}
-			
-			/* code */
+			(files)++;
 		}
 		
 	}
