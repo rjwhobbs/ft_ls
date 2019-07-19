@@ -17,7 +17,7 @@ int count_files(char *dirname, int mode)
 	else
 		while ((file = readdir(dir)) != NULL)
 			if (file->d_name[0] != '.')
-			n++;
+				n++;
 	closedir(dir);
 	return (n);
 }
