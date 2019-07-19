@@ -78,7 +78,7 @@ void	print_time(struct stat filestat)
 }
 void	print_name(char *file)
 {
-	ft_putendl(ft_strrchr(file, '/'));
+	ft_putendl((ft_strrchr(file, '/')) + 1);
 }
 
 void	readstat(char *file)
