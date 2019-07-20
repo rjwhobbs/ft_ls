@@ -17,7 +17,6 @@ int	main(int ac, char **av)
 				print_R(*files);
 			(files)++;
 		}
-		
 	}
 	return (0);
 }

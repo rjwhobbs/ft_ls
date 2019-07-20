@@ -8,8 +8,8 @@
 int		totalblksize(char **files)
 {
 	struct stat		file_blk;
-	int i;
-	int blk_sum;
+	int 			i;
+	int				 blk_sum;
 
 	i = 0;
 	blk_sum = 0;
@@ -96,7 +96,12 @@ void	print_time(struct stat filestat)
 }
 void	print_name(char *file)
 {
-	ft_putendl((ft_strrchr(file, '/')) + 1);
+	char *name_ptr;
+
+	if ((name_ptr = ft_strrchr(file, '/')))
+		ft_putendl(name_ptr + 1);
+	else
+		ft_putendl(file);	
 }
 
 void	readstat(char *file)

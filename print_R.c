@@ -7,13 +7,13 @@ static void	printdirname(char *dir)
 	char *temp;
 
 	temp = dir;
-	last_slash = ft_strrchr(dir, '/');
-	if (!(ft_strequ(dir, "./")))
-	{
-		while(temp < last_slash)
-			ft_putchar(*temp++);
-		ft_putendl(":");
-	}
+	if ((last_slash = ft_strrchr(dir, '/')))
+		if (!(ft_strequ(dir, "./")))
+		{
+			while(temp < last_slash)
+				ft_putchar(*temp++);
+			ft_putendl(":");
+		}
 }
 
 static void	sort_print(char ***files, char ***dirs, char *dir)
@@ -39,15 +39,17 @@ void		print_R(char *dir)
 		files = get_filenames(dir, 'a');
 		dirs = get_dirnames(dir, 'a');
 		temp2 = dirs;
-		sort_print(&files, &dirs, dir);	 	
+		sort_print(&files, &dirs, dir);		
 		if (dirs)
 			while (*dirs)
 			{
+
 				tempdir = ft_strjoin(dir, *dirs++);
 				print_R(tempdir);
 				free(tempdir);
 			}
-		strstr_del(&temp2);
+		if (temp2)
+			strstr_del(&temp2);
 		strstr_del(&files);
 	}
 }
