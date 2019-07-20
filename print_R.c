@@ -9,9 +9,7 @@ static void	printdirname(char *dir)
 	temp = dir;
 	last_slash = ft_strrchr(dir, '/');
 	while(temp < last_slash)
-	{
 		ft_putchar(*temp++);
-	}
 	ft_putendl(":");
 }
 
@@ -23,7 +21,6 @@ static void	sort_print(char ***files, char ***dirs, char *dir)
 		sort(files);
 	ft_nl();
 	printdirname(dir);
-	ft_putendl("I will be blocksize");
 	print_files_l(*files);
 }
 

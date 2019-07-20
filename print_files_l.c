@@ -5,6 +5,24 @@
 #include <uuid/uuid.h>
 #include "ft_ls.h"
 
+int		totalblksize(char **files)
+{
+	struct stat		file_blk;
+	int i;
+	int blk_sum;
+
+	i = 0;
+	blk_sum = 0;
+	while (files[i])
+	{
+		stat(files[i], &file_blk);
+		blk_sum += file_blk.st_blocks;
+		i++;
+	}
+	return (blk_sum);
+
+}
+
 void	print_mode(struct stat filestat)
 {
 	if (filestat.st_mode & S_IFDIR)
@@ -98,6 +116,12 @@ void	readstat(char *file)
 
 void	print_files_l(char **files)
 {
+	if (*files)
+	{
+		ft_putstr("total ");
+		ft_putnbr(totalblksize(files));
+		ft_nl();
+	}
 	while (*files)
 	{
 		readstat(*files++);
