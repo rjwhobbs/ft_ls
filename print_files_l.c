@@ -89,15 +89,6 @@ void	print_time(struct stat filestat)
 	ft_putstr(" ");
 	ft_strdel(&str);
 }
-void	print_name(char *file)
-{
-	char *name_ptr;
-
-	if ((name_ptr = ft_strrchr(file, '/')))
-		ft_putendl(name_ptr + 1);
-	else
-		ft_putendl(file);	
-}
 
 void	readstat(char *file)
 {
@@ -111,7 +102,6 @@ void	readstat(char *file)
 	print_size(filestat);
 	print_time(filestat);
 	print_name(file);
-
 }
 
 void	print_files_l(char **files)

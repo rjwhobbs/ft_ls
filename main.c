@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 		if (files)
 			sort(&files);
 		while (*files)
-			ft_putendl(*files++);
+			print_name(*files++);
 	}
 	return (0);
 }
