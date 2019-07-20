@@ -1,8 +1,3 @@
-#include <time.h>
-#include <sys/stat.h>
-#include <grp.h>
-#include <pwd.h>
-#include <uuid/uuid.h>
 #include "ft_ls.h"
 
 int		totalblksize(char **files)

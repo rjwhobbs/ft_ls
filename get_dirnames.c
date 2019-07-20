@@ -1,4 +1,3 @@
-#include <dirent.h>
 #include "ft_ls.h"
 
 static char	**error(char *dir)

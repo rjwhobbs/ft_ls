@@ -18,5 +18,13 @@ int	main(int ac, char **av)
 			(files)++;
 		}
 	}
+	else if (ac == 1)
+	{
+		files = get_filenames("./", '-');
+		if (files)
+			sort(&files);
+		while (*files)
+			ft_putendl(*files++);
+	}
 	return (0);
 }

@@ -1,4 +1,3 @@
-#include <dirent.h>
 #include "ft_ls.h"
 
 int count_dirs(char *dirname, int mode)
