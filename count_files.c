@@ -2,9 +2,9 @@
 
 int count_files(char *dirname, int mode)
 {
-	DIR	*dir;
-	struct dirent *file;
-	int	n;
+	DIR				*dir;
+	struct dirent 	*file;
+	int				n;
 
 	n = 0;
 	dir = opendir(dirname);

@@ -49,6 +49,7 @@ static char	**process_files(char **av[])
 	char	**files;
 	char	**begining_of_files;
 
+	files = NULL;
 	nfiles = 0;
 	while ((*av)[nfiles])
 		nfiles++;

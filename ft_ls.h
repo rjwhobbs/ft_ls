@@ -7,6 +7,8 @@
 # include <grp.h>
 # include <pwd.h>
 # include <uuid/uuid.h>
+# include <string.h>
+# include <errno.h>
 
 int		process_args(char *av[], char *operations[], char **files[]);
 int		count_files(char *dirname, int mode);
