@@ -53,6 +53,8 @@ static char	**process_files(char **av[])
 	nfiles = 0;
 	while ((*av)[nfiles])
 		nfiles++;
+	if (nfiles == 0)
+		return (NULL);
 	files = (char **)malloc(sizeof(char *) * (nfiles + 1));
 	if (files == NULL)
 		return (NULL);

@@ -35,6 +35,29 @@ static void    valid_checker(char **files)
     }
 }
 
+static void		run_func(char *ops, char ***files)
+{
+	char	**str;
+
+	str = NULL;
+	if (ft_strchr(ops, 'l') && !*files) 
+	{
+		str = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
+		sort(&str);
+		print_files_l(str);
+		exit (0);
+	}
+	else if (ft_strchr(ops, 'l') && *files) 
+	{
+		sort(files);
+		valid_checker(*files); //We still need to free files
+		str = get_filenames(**files, (ft_strchr(ops, 'a'))? 'a' : '-');
+		sort(&str);
+		print_files_l(str);
+		exit (0);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	char *ops;
@@ -45,15 +68,13 @@ int	main(int ac, char **av)
 	if (ac > 1)
 	{
 		process_args(av, &ops, &files);
-		if (files)
-			sort(&files);
-		valid_checker(files); //We still need to free files.
-		while (*files)
-		{
-			if (ft_strchr(ops, 'R'))
+		run_func(ops, &files);
+		if (ft_strchr(ops, 'R'))
+			while (*files)
+			{
 				print_R(*files);
-			(files)++;
-		}
+				(files)++;
+			}
 	}
 	else if (ac == 1)
 	{

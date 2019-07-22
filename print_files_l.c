@@ -116,6 +116,6 @@ void	print_files_l(char **files)
 	{
 		readstat(*files++);
 	}
-	ft_nl();
+	//ft_nl();
 }
 
