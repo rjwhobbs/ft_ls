@@ -14,7 +14,6 @@ static void    valid_checker(char **files)
 	struct stat		valid_file;
     int     		c;
 
-    c = 0;
     while (*files)
     {
         c = 0;
@@ -25,12 +24,11 @@ static void    valid_checker(char **files)
 			c++;
 	    }
 		if (c)
-			while (files[c])
-			{
-				files[c - 1] = files[c];
-				c++;
-			}
-            files[c - 1] = NULL;
+		{
+			while (files[c++])
+				files[c - 2] = files[c - 1];
+            files[c - 2] = NULL;
+		}
 		files++;
 		if (c)
 			files--;
@@ -49,8 +47,7 @@ int	main(int ac, char **av)
 		process_args(av, &ops, &files);
 		if (files)
 			sort(&files);
-		if (files)
-			valid_checker(files); //We still need to free files.
+		valid_checker(files); //We still need to free files.
 		while (*files)
 		{
 			if (ft_strchr(ops, 'R'))
