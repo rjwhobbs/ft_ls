@@ -1,12 +1,5 @@
 #include "ft_ls.h"
 
-static char **error(char *dir)
-{
-	ft_putstr(dir);
-	ft_putendl("is not a valid directory");
-	return (NULL);
-}
-
 static char **filenames_all(char *dirname)
 {
 	DIR				*dir;
@@ -16,10 +9,16 @@ static char **filenames_all(char *dirname)
 	char			**temp;
 
 	n = count_files(dirname, 'a');
+	if (n < 0)
+	{
+		files = (char **)malloc(sizeof(char *) * 2);
+		files[0] = ft_strdup(dirname);
+		files[1] = NULL;
+		return (files);
+	}	
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
-	if ((dir = opendir(dirname)) == NULL)
-		return (error(dirname));
+	dir = opendir(dirname);
 	while ((file = readdir(dir)) != NULL)
 		*files++ = ft_strjoin(dirname, file->d_name);
 	*files = NULL;
@@ -37,10 +36,16 @@ static char **filenames(char *dirname)
 	char			**temp;
 
 	n = count_files(dirname, '-');
+	if (n < 0)
+	{
+		files = (char **)malloc(sizeof(char *) * 2);
+		files[0] = ft_strdup(dirname);
+		files[1] = NULL;
+		return (files);
+	}
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
-	if ((dir = opendir(dirname)) == NULL)
-		return (error(dirname));
+	dir = opendir(dirname);
 	while ((file = readdir(dir)) != NULL)
 	{
 		if (file->d_name[0] != '.')
