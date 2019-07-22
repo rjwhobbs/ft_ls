@@ -15,8 +15,6 @@ static char	**dirnames(char *parentdir)
 	char			**temp;
 
 	n = count_files(parentdir, '-');
-	if (n < 0)
-		return (NULL);
 	dirs = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = dirs;
 	if ((dir = opendir(parentdir)) == NULL)
@@ -40,8 +38,6 @@ static char	**dirnames_all(char *parentdir)
 	char			**temp;
 
 	n = count_dirs(parentdir, 'a');
-	if (n < 0)
-		return (NULL);
 	dirs = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = dirs;
 	if ((dir = opendir(parentdir)) == NULL)

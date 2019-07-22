@@ -16,13 +16,6 @@ static char **filenames_all(char *dirname)
 	char			**temp;
 
 	n = count_files(dirname, 'a');
-	if (n < 0)
-	{
-		files = (char **)malloc(sizeof(char *) * 2);
-		files[0] = ft_strdup(dirname);
-		files[1] = NULL;
-		return (files);
-	}	
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
 	if ((dir = opendir(dirname)) == NULL)
