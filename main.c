@@ -25,12 +25,9 @@ static void    valid_checker(char **files)
 	    }
 		if (c)
 		{
-			while (files[c])
-			{
-				files[c - 1] = files[c];
-				c++;
-			}
-            files[c - 1] = NULL;
+			while (files[c++])
+				files[c - 2] = files[c - 1];
+            files[c - 2] = NULL;
 		}
 		files++;
 		if (c)
@@ -38,13 +35,13 @@ static void    valid_checker(char **files)
     }
 }
 
-void			noflags_args(char ***files)
+void			noflags_args(char ***files, char *ops)
 {
 	char	**strs;
 	int		i;
 
 	i = 0;
-	sort(files);
+	sort(files, ops);
 	valid_checker(*files); //We still need to free files
 	while (**files)
 	{
@@ -52,7 +49,7 @@ void			noflags_args(char ***files)
 		ft_putstr(**files);
 		ft_putendl(":");
 		strs = get_filenames(*(*files)++, '-');
-		sort(&strs);
+		sort(&strs, ops);
 		while(strs[i])
 			print_name(strs[i++]);
 		ft_nl();
@@ -71,21 +68,26 @@ static void		run_func(char *ops, char ***files)
 	strs = NULL;
 	dirs = NULL;
 	if (!ops[0] && *files)
-		noflags_args(files);
+		noflags_args(files, ops);
 	else if (ft_strchr(ops, 'l') && !*files) 
 	{
 		strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
-		sort(&strs);
+		sort(&strs, ops);
 		print_files_l(strs);
 		exit (0);
 	}
 	else if (ft_strchr(ops, 'l') && *files) 
 	{
-		sort(files);
+		sort(files, ops);
 		valid_checker(*files); //We still need to free files
-		strs = get_filenames(**files, (ft_strchr(ops, 'a'))? 'a' : '-');
-		sort(&strs);
-		print_files_l(strs);
+		while (**files)
+		{
+			printdirname(**files);
+			strs = get_filenames(*(*files)++, (ft_strchr(ops, 'a'))? 'a' : '-');
+			sort(&strs, ops);
+			print_files_l(strs);
+			strstr_del(&strs);
+		}
 		exit (0);
 	}
 }
@@ -97,6 +99,7 @@ int	main(int ac, char **av)
 	char **dirs;
 
 	dirs = NULL;
+	ops = NULL;
 	if (ac > 1)
 	{
 		process_args(av, &ops, &files);
@@ -108,7 +111,7 @@ int	main(int ac, char **av)
 		{
 			while (*files)
 			{
-				print_R(*files);
+				print_R(*files, ops);
 				(files)++;
 			}
 		}
@@ -117,7 +120,7 @@ int	main(int ac, char **av)
 	{
 		files = get_filenames("./", '-');
 		if (files)
-			sort(&files);
+			sort(&files, ops);
 		while (*files)
 			print_name(*files++);
 	}
