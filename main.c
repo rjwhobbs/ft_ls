@@ -25,9 +25,12 @@ static void    valid_checker(char **files)
 	    }
 		if (c)
 		{
-			while (files[c++])
-				files[c - 2] = files[c - 1];
-            files[c - 2] = NULL;
+			while (files[c])
+			{
+				files[c - 1] = files[c];
+				c++;
+			}
+            files[c - 1] = NULL;
 		}
 		files++;
 		if (c)
@@ -35,25 +38,54 @@ static void    valid_checker(char **files)
     }
 }
 
+void			noflags_args(char ***files)
+{
+	char	**strs;
+	int		i;
+
+	i = 0;
+	sort(files);
+	valid_checker(*files); //We still need to free files
+	while (**files)
+	{
+		i = 0;
+		ft_putstr(**files);
+		ft_putendl(":");
+		strs = get_filenames(*(*files)++, '-');
+		sort(&strs);
+		while(strs[i])
+			print_name(strs[i++]);
+		ft_nl();
+		strstr_del(&strs);
+	}
+	exit (0);
+}
+
 static void		run_func(char *ops, char ***files)
 {
-	char	**str;
+	char	**strs;
+	char	**dirs;
+	int		i;
 
-	str = NULL;
-	if (ft_strchr(ops, 'l') && !*files) 
+	i = 0;
+	strs = NULL;
+	dirs = NULL;
+	if (!ops[0] && *files)
+		noflags_args(files);
+	else if (ft_strchr(ops, 'l') && !*files) 
 	{
-		str = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
-		sort(&str);
-		print_files_l(str);
+		strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
+		sort(&strs);
+		print_files_l(strs);
 		exit (0);
 	}
 	else if (ft_strchr(ops, 'l') && *files) 
 	{
 		sort(files);
 		valid_checker(*files); //We still need to free files
-		str = get_filenames(**files, (ft_strchr(ops, 'a'))? 'a' : '-');
-		sort(&str);
-		print_files_l(str);
+		strs = get_filenames(**files, (ft_strchr(ops, 'a'))? 'a' : '-');
+		sort(&strs);
+		print_files_l(strs);
 		exit (0);
 	}
 }
@@ -68,13 +100,18 @@ int	main(int ac, char **av)
 	if (ac > 1)
 	{
 		process_args(av, &ops, &files);
-		run_func(ops, &files);
-		if (ft_strchr(ops, 'R'))
+		if (*files)
+			valid_checker(files);
+		if (!(ft_strchr(ops, 'R')))
+			run_func(ops, &files);
+		else if (ft_strchr(ops, 'R'))
+		{
 			while (*files)
 			{
 				print_R(*files);
 				(files)++;
 			}
+		}
 	}
 	else if (ac == 1)
 	{

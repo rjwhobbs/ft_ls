@@ -4,7 +4,7 @@ int		totalblksize(char **files)
 {
 	struct stat		file_blk;
 	int 			i;
-	int				 blk_sum;
+	int				blk_sum;
 
 	i = 0;
 	blk_sum = 0;
@@ -116,6 +116,7 @@ void	print_files_l(char **files)
 	{
 		readstat(*files++);
 	}
+	
 	//ft_nl();
 }
 

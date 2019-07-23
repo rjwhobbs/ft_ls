@@ -1,5 +1,14 @@
 #include "ft_ls.h"
 
+static char			*ft_strrealloc(char *s1, char *s2)
+{
+	char *new;
+
+	new = ft_strjoin(s1, s2);
+	ft_strdel(&s1);
+	return (new);
+}
+
 static char **filenames_all(char *dirname)
 {
 	DIR				*dir;
@@ -7,6 +16,7 @@ static char **filenames_all(char *dirname)
 	struct dirent	*file;
 	char			**files;
 	char			**temp;
+	
 
 	n = count_files(dirname, 'a');
 	if (n < 0)
@@ -15,7 +25,9 @@ static char **filenames_all(char *dirname)
 		files[0] = ft_strdup(dirname);
 		files[1] = NULL;
 		return (files);
-	}	
+	}
+	if (dirname[ft_strlen(dirname) - 1] != '/')
+		dirname = ft_strrealloc(dirname, "/");
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
 	dir = opendir(dirname);
@@ -43,6 +55,8 @@ static char **filenames(char *dirname)
 		files[1] = NULL;
 		return (files);
 	}
+	if (dirname[ft_strlen(dirname) - 1] != '/')
+		dirname = ft_strrealloc(dirname, "/");
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
 	dir = opendir(dirname);

@@ -8,7 +8,7 @@ static char	**dirnames(char *parentdir)
 	char			**dirs;
 	char			**temp;
 
-	n = count_files(parentdir, '-');
+	n = count_dirs(parentdir, '-');
 	if (n < 0)
 		return (NULL);
 	dirs = (char **)malloc(sizeof(char *) * (n + 1));
