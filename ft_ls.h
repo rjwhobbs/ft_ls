@@ -15,7 +15,7 @@ int		count_files(char *dirname, int mode);
 int		count_dirs(char *dirname, int mode);
 char	**get_filenames(char *dirname, int mode);
 char	**get_dirnames(char *parentdir, int mode);
-void	sort(char ***names, char *args);
+void	sort(char ***names, char *ops);
 void	print_R(char *dir, char *ops);
 void	print_files(char **dir);
 void	print_files_l(char **files);

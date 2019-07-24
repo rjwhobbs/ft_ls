@@ -89,17 +89,17 @@ void	sort_rev(char ***names, int n)
 		n--;
 	}
 }
-void	sort(char ***names, char *args)
+void	sort(char ***names, char *ops)
 {
 	size_t n;
 
 	n = count_names(*names);
 	sort_lex(names, n);
-	if (args)
+	if (ops)
 	{
-		if (ft_strchr(args, 't'))
+		if (ft_strchr(ops, 't'))
 			sort_time(names, n);
-		if (ft_strchr(args, 'r'))
+		if (ft_strchr(ops, 'r'))
 			sort_rev(names, n);
 	}
 }

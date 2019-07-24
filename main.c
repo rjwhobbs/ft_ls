@@ -67,7 +67,25 @@ static void		run_func(char *ops, char ***files)
 	i = 0;
 	strs = NULL;
 	dirs = NULL;
-	if (!ops[0] && *files)
+	if (ops[0] && !(ft_strchr(ops, 'l')) && !*files)
+	{
+		strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
+		if (strs) 
+			sort(&strs, ops);
+		while (strs[i])
+			print_name(strs[i++]);
+		strstr_del(&strs);
+		exit (0);
+	}
+	else if (!ops[0] && !*files)
+	{
+		strs = get_filenames("./", '-');
+		sort(&strs, ops);
+		while(strs[i])
+			print_name(strs[i++]);
+		strstr_del(&strs);
+	}
+	else if (!ops[0] && *files)
 		noflags_args(files, ops);
 	else if (ft_strchr(ops, 'l') && !*files) 
 	{
@@ -103,7 +121,7 @@ int	main(int ac, char **av)
 	if (ac > 1)
 	{
 		process_args(av, &ops, &files);
-		if (*files)
+		if (files && *files)
 			valid_checker(files);
 		if (!(ft_strchr(ops, 'R')))
 			run_func(ops, &files);
