@@ -9,7 +9,7 @@ int count_files(char *dirname, int mode)
 	n = 0;
 	dir = opendir(dirname);
 	if (dir == NULL)
-		return -1;
+		return (-1);
 	if (mode == 'a')
 		while (readdir(dir))
 			n++;

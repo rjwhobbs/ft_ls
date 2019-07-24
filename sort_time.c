@@ -1,9 +1,5 @@
 #include "ft_ls.h"
 
-// static void sort_nano(char ***names, time_t *filetimes)
-// {
-
-// }
 static void match_times(char ***names,  time_t filetimes[])
 {
 	int i;
