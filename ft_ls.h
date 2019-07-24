@@ -23,5 +23,6 @@ void    strstr_del(char ***del_me);
 void    print_rec_test(char *dir);
 void	print_name(char *file);
 void	printdirname(char *dir);
+void	sort_time(char ***names, int n);
 
 #endif
