@@ -20,7 +20,7 @@ int		totalblksize(char **files)
 
 void	print_mode(struct stat filestat)
 {
-	if (filestat.st_mode & S_IFDIR)
+	if (S_ISDIR(filestat.st_mode))
 		ft_putchar('d');
 	else if (S_ISFIFO(filestat.st_mode))
 		ft_putchar('p');
