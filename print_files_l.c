@@ -102,6 +102,8 @@ void	readstat(char *file)
 	print_size(filestat);
 	print_time(filestat);
 	print_name(file);
+	print_sym_link(file, filestat);
+	ft_nl();
 }
 
 void	print_files_l(char **files)

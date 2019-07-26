@@ -43,7 +43,6 @@ void			noflags_args(char ***files, char *ops)
 
 	i = 0;
 	sort(files, ops);
-	//valid_checker(*files); //We still need to free files // Why did we do this twice?
 	while (**files)
 	{
 		i = 0;
@@ -52,8 +51,10 @@ void			noflags_args(char ***files, char *ops)
 		strs = get_filenames(*(*files)++, '-');
 		sort(&strs, ops);
 		while(strs[i])
+		{
 			print_name(strs[i++]);
-		ft_nl();
+			ft_nl();
+		}
 		strstr_del(&strs);
 	}
 	exit (0);
@@ -73,19 +74,25 @@ static void		run_func(char *ops, char ***files)
 		strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
 		if (strs) 
 			sort(&strs, ops);
-		while (strs[i])
+		while(strs[i])
+		{
 			print_name(strs[i++]);
+			ft_nl();
+		}
 		strstr_del(&strs);
 		exit (0);
 	}
-	else if (!ops[0] && !*files)
-	{
-		strs = get_filenames("./", '-');
-		sort(&strs, ops);
-		while(strs[i])
-			print_name(strs[i++]);
-		strstr_del(&strs);
-	}
+	// else if (!ops[0] && !*files) ?? why is this here
+	// {
+	// 	strs = get_filenames("./", '-');
+	// 	sort(&strs, ops);
+	// 	while(strs[i])
+	// 	{
+	// 		print_name(strs[i++]);
+	// 		ft_nl();
+	// 	}
+	// 	strstr_del(&strs);
+	// }
 	else if (!ops[0] && *files)
 		noflags_args(files, ops);
 	else if (ft_strchr(ops, 'l') && !*files) 
@@ -98,7 +105,6 @@ static void		run_func(char *ops, char ***files)
 	else if (ft_strchr(ops, 'l') && *files) 
 	{
 		sort(files, ops);
-		//valid_checker(*files); //We still need to free files // Why did we do this twice?
 		while (**files)
 		{
 			printdirname(**files);
@@ -123,16 +129,19 @@ int	main(int ac, char **av)
 	{
 		process_args(av, &ops, &files);
 		if (files && *files)
-			valid_checker(files);
+			valid_checker(files); //We still need to free files
 		if (!(ft_strchr(ops, 'R')))
 			run_func(ops, &files);
 		else if (ft_strchr(ops, 'R'))
 		{
-			while (*files)
-			{
-				print_R(*files, ops);
-				(files)++;
-			}
+			if (!files)
+				print_R("./", ops);
+			else
+				while (*files)
+				{
+					print_R(*files, ops);
+					(files)++;
+				}
 		}
 	}
 	else if (ac == 1)
@@ -141,7 +150,10 @@ int	main(int ac, char **av)
 		if (files)
 			sort(&files, ops);
 		while (*files)
+		{
 			print_name(*files++);
+			ft_nl();
+		}
 	}
 	return (0);
 }
