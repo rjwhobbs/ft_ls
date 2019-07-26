@@ -1,5 +1,4 @@
 #include "ft_ls.h"
-#include <unistd.h>
 
 static void 	print_error(char *file)
 {
@@ -17,12 +16,14 @@ static void    valid_checker(char **files)
     while (*files)
     {
         c = 0;
-        if ((stat(*files, &valid_file)) == -1)
+        if ((lstat(*files, &valid_file)) == -1)
         {
 			print_error(*files);
             ft_strdel(files);
 			c++;
 	    }
+		else if (S_ISDIR(valid_file.st_mode) && ((*files)[ft_strlen(*files) - 1]) != '/')
+			*files = ft_strrealloc(*files, "/");
 		if (c)
 		{
 			while (files[c++])
@@ -42,7 +43,7 @@ void			noflags_args(char ***files, char *ops)
 
 	i = 0;
 	sort(files, ops);
-	valid_checker(*files); //We still need to free files
+	//valid_checker(*files); //We still need to free files // Why did we do this twice?
 	while (**files)
 	{
 		i = 0;
@@ -97,7 +98,7 @@ static void		run_func(char *ops, char ***files)
 	else if (ft_strchr(ops, 'l') && *files) 
 	{
 		sort(files, ops);
-		valid_checker(*files); //We still need to free files
+		//valid_checker(*files); //We still need to free files // Why did we do this twice?
 		while (**files)
 		{
 			printdirname(**files);
