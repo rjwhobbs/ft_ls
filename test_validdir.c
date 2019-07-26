@@ -1,6 +1,6 @@
-#include "libft/libft.h"
 #include <sys/stat.h>
 #include <dirent.h>
+#include "libft/libft.h"
 
 int main(int ac, char *av[])
 {

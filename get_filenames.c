@@ -7,7 +7,6 @@ static char **filenames_all(char *dirname)
 	struct dirent	*file;
 	char			**files;
 	char			**temp;
-	
 
 	n = count_files(dirname, 'a');
 	if (n < 0)
@@ -17,8 +16,6 @@ static char **filenames_all(char *dirname)
 		files[1] = NULL;
 		return (files);
 	}
-	// if (dirname[ft_strlen(dirname) - 1] != '/')
-	// 	dirname = ft_strrealloc(dirname, "/");
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
 	dir = opendir(dirname);
@@ -37,17 +34,17 @@ static char **filenames(char *dirname)
 	struct dirent	*file;
 	char			**files;
 	char			**temp;
+	struct stat		valid_file;
 
+	lstat(dirname, &valid_file);
 	n = count_files(dirname, '-');
-	if (n < 0)
+	if (n < 0 ||!(S_ISDIR(valid_file.st_mode))) // lets try optimize this
 	{
 		files = (char **)malloc(sizeof(char *) * 2);
 		files[0] = ft_strdup(dirname);
 		files[1] = NULL;
 		return (files);
 	}
-	// if (dirname[ft_strlen(dirname) - 1] != '/')
-	// 	dirname = ft_strrealloc(dirname, "/");
 	files = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = files;
 	dir = opendir(dirname);

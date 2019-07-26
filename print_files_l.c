@@ -67,7 +67,10 @@ void	print_group(struct stat filestat)
 	struct group *usergroup;
 
 	usergroup = getgrgid(filestat.st_gid);
-	ft_putstr(usergroup->gr_name);
+	if (usergroup == NULL)
+		ft_putstr("4000");
+	else
+		ft_putstr(usergroup->gr_name);
 	ft_putchar(' ');
 
 }
