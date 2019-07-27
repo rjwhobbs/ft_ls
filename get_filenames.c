@@ -7,9 +7,11 @@ static char **filenames_all(char *dirname)
 	struct dirent	*file;
 	char			**files;
 	char			**temp;
+	struct stat		valid_file;
 
+	lstat(dirname, &valid_file);
 	n = count_files(dirname, 'a');
-	if (n < 0)
+	if (n < 0 ||!(S_ISDIR(valid_file.st_mode)))
 	{
 		files = (char **)malloc(sizeof(char *) * 2);
 		files[0] = ft_strdup(dirname);

@@ -1,5 +1,11 @@
 #include "ft_ls.h"
 
+static void    checker(char **dir)
+{
+    if ((*dir)[ft_strlen(*dir) - 1] != '/') 
+        *dir = ft_strrealloc(*dir, "/");  
+}
+
 static void 	print_error(char *file)
 {
 	ft_putstr("ft_ls: ");
@@ -82,17 +88,6 @@ static void		run_func(char *ops, char ***files)
 		strstr_del(&strs);
 		exit (0);
 	}
-	// else if (!ops[0] && !*files) ?? why is this here
-	// {
-	// 	strs = get_filenames("./", '-');
-	// 	sort(&strs, ops);
-	// 	while(strs[i])
-	// 	{
-	// 		print_name(strs[i++]);
-	// 		ft_nl();
-	// 	}
-	// 	strstr_del(&strs);
-	// }
 	else if (!ops[0] && *files)
 		noflags_args(files, ops);
 	else if (ft_strchr(ops, 'l') && !*files) 
@@ -119,12 +114,15 @@ static void		run_func(char *ops, char ***files)
 
 int	main(int ac, char **av)
 {
-	char *ops;
-	char **files;
-	char **dirs;
+	char 			*ops;
+	char 			**files;
+	char 			**dirs;
+	int				i;
+	struct stat		valid_dir;
 
 	dirs = NULL;
 	ops = NULL;
+	i = 0;
 	if (ac > 1)
 	{
 		process_args(av, &ops, &files);
@@ -132,16 +130,34 @@ int	main(int ac, char **av)
 			valid_checker(files); //We still need to free files
 		if (!(ft_strchr(ops, 'R')))
 			run_func(ops, &files);
-		else if (ft_strchr(ops, 'R'))
+		else if (ft_strchr(ops, 'R') && !ft_strchr(ops, 'l'))
 		{
 			if (!files)
 				print_R("./", ops);
 			else
-				while (*files)
+				while (files[i])
+				{
+					checker(&files[i]);
+					print_R(files[i], ops);
+					i++;
+				}
+		}
+		else if (ft_strchr(ops, 'R') && ft_strchr(ops, 'l') && files)
+		{
+			while(*files)
+			{
+				lstat(*files, &valid_dir);
+				if (!(S_ISDIR(valid_dir.st_mode)))
+				{
+					print_files_l(files);
+					(files)++;
+				}
+				else
 				{
 					print_R(*files, ops);
 					(files)++;
 				}
+			}
 		}
 	}
 	else if (ac == 1)

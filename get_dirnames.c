@@ -31,7 +31,7 @@ static char	**dirnames_all(char *parentdir)
 	struct dirent	*file;
 	char			**dirs;
 	char			**temp;
-
+	
 	n = count_dirs(parentdir, 'a');
 	if (n < 0)
 		return (NULL);

@@ -17,7 +17,6 @@ void		print_R(char *dir, char *ops)
 	char *tempdir;
 	char **temp2;
 
-	dirs = NULL;
 	files = get_filenames(dir, 'a');
 	dirs = get_dirnames(dir, 'a');
 	temp2 = dirs;
