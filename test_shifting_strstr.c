@@ -29,7 +29,7 @@ void    valid_checker(char **files)
 			files--;
     }
 }
-
+    
 int main(void)
 {
     int i;

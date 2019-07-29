@@ -1,4 +1,13 @@
 #include "ft_ls.h"
+#include <stdio.h>
+
+static void 	print_error(char *file)
+{
+	ft_putstr("ft_ls: ");
+	ft_putstr(file);
+	ft_putstr(": ");
+	ft_putendl(strerror(errno));	
+}
 
 int		totalblksize(char **files)
 {
@@ -59,7 +68,7 @@ void	print_username(struct stat filestat)
 
 	user = getpwuid(filestat.st_uid);
 	ft_putstr(user->pw_name);
-	ft_putchar(' ');
+	ft_putstr("  \t   ");
 }
 
 void	print_group(struct stat filestat)
@@ -71,7 +80,7 @@ void	print_group(struct stat filestat)
 		ft_putstr("4000");
 	else
 		ft_putstr(usergroup->gr_name);
-	ft_putchar(' ');
+	ft_putstr("\t");
 
 }
 
@@ -97,16 +106,21 @@ void	readstat(char *file)
 {
 	struct stat		filestat;
 
-	lstat(file, &filestat);
-	print_mode(filestat);
-	print_link(filestat);
-	print_username(filestat);
-	print_group(filestat);
-	print_size(filestat);
-	print_time(filestat);
-	print_name(file);
-	print_sym_link(file, filestat);
-	ft_nl();
+	//lstat(file, &filestat);
+	if((lstat(file, &filestat)) != -1)
+	{
+		print_mode(filestat);
+		print_link(filestat);
+		print_username(filestat);
+		print_group(filestat);
+		print_size(filestat);
+		print_time(filestat);
+		print_name(file);
+		print_sym_link(file, filestat);
+		ft_nl();
+	}
+	else
+		print_error(file);
 }
 
 void	print_files_l(char **files)

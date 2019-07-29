@@ -9,10 +9,13 @@ static char **filenames_all(char *dirname)
 	char			**temp;
 	struct stat		valid_file;
 
+	//errno = 0;
 	lstat(dirname, &valid_file);
 	n = count_files(dirname, 'a');
-	if (n < 0 ||!(S_ISDIR(valid_file.st_mode)))
+	if (n < 0 || !(S_ISDIR(valid_file.st_mode))) //why is IS_DIR here now?
 	{
+		// if (errno == 13)
+		// 	return (NULL);
 		files = (char **)malloc(sizeof(char *) * 2);
 		files[0] = ft_strdup(dirname);
 		files[1] = NULL;
@@ -38,10 +41,13 @@ static char **filenames(char *dirname)
 	char			**temp;
 	struct stat		valid_file;
 
+	//errno = 0;
 	lstat(dirname, &valid_file);
 	n = count_files(dirname, '-');
 	if (n < 0 ||!(S_ISDIR(valid_file.st_mode))) // lets try optimize this
 	{
+		// if (errno == 13)
+		// 	return (NULL);
 		files = (char **)malloc(sizeof(char *) * 2);
 		files[0] = ft_strdup(dirname);
 		files[1] = NULL;

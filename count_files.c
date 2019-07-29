@@ -1,5 +1,13 @@
 #include "ft_ls.h"
 
+static void 	print_error(void)
+{
+	ft_putstr("ft_ls: ");
+	//ft_putstr(file);
+	ft_putstr(": ");
+	ft_putendl(strerror(errno));	
+}
+
 int count_files(char *dirname, int mode)
 {
 	DIR				*dir;
@@ -9,7 +17,10 @@ int count_files(char *dirname, int mode)
 	n = 0;
 	dir = opendir(dirname);
 	if (dir == NULL)
+	{
+		print_error();
 		return (-1);
+	}
 	if (mode == 'a')
 		while (readdir(dir))
 			n++;

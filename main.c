@@ -1,10 +1,11 @@
 #include "ft_ls.h"
 
-static void    checker(char **dir)
-{
-    if ((*dir)[ft_strlen(*dir) - 1] != '/') 
-        *dir = ft_strrealloc(*dir, "/");  
-}
+
+// static void    checker(char **dir)
+// {
+//     if ((*dir)[ft_strlen(*dir) - 1] != '/') 
+//         *dir = ft_strrealloc(*dir, "/");  
+// }
 
 static void 	print_error(char *file)
 {
@@ -55,13 +56,18 @@ void			noflags_args(char ***files, char *ops)
 		ft_putstr(**files);
 		ft_putendl(":");
 		strs = get_filenames(*(*files)++, '-');
-		sort(&strs, ops);
-		while(strs[i])
+		if (strs)
 		{
-			print_name(strs[i++]);
+			sort(&strs, ops);
+			while(strs[i])
+			{
+				print_name(strs[i++]);
+				ft_nl();
+			}
 			ft_nl();
 		}
-		strstr_del(&strs);
+		if (strs)
+			strstr_del(&strs);
 	}
 	exit (0);
 }
@@ -137,7 +143,7 @@ int	main(int ac, char **av)
 			else
 				while (files[i])
 				{
-					checker(&files[i]);
+					//checker(&files[i]);
 					print_R(files[i], ops);
 					i++;
 				}
