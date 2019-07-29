@@ -108,11 +108,19 @@ static void		run_func(char *ops, char ***files)
 		sort(files, ops);
 		while (**files)
 		{
-			printdirname(**files);
-			strs = get_filenames(*(*files)++, (ft_strchr(ops, 'a'))? 'a' : '-');
-			sort(&strs, ops);
-			print_files_l(strs);
-			strstr_del(&strs);
+			if (((**files)[ft_strlen(**files) - 1]) != '/')
+			{
+				print_file_l(*files);
+				(*files)++;
+			}
+			else
+			{
+				printdirname(**files);
+				strs = get_filenames(*(*files)++, (ft_strchr(ops, 'a'))? 'a' : '-');
+				sort(&strs, ops);
+				print_files_l(strs);
+				strstr_del(&strs);
+			}
 		}
 		exit (0);
 	}
@@ -155,7 +163,7 @@ int	main(int ac, char **av)
 				lstat(*files, &valid_dir);
 				if (!(S_ISDIR(valid_dir.st_mode)))
 				{
-					print_files_l(files);
+					print_file_l(files);
 					(files)++;
 				}
 				else

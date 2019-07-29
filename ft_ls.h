@@ -25,5 +25,6 @@ void	print_name(char *file);
 void	printdirname(char *dir);
 void	sort_time(char ***names, int n);
 void    print_sym_link(char *filename, struct stat filestat);
+void	print_file_l(char **files);
 
 #endif

@@ -8,25 +8,7 @@ static void 	print_error(char *file)
 	ft_putendl(strerror(errno));	
 }
 
-int		totalblksize(char **files)
-{
-	struct stat		file_blk;
-	int 			i;
-	int				blk_sum;
-
-	i = 0;
-	blk_sum = 0;
-	while (files[i])
-	{
-		stat(files[i], &file_blk);
-		blk_sum += file_blk.st_blocks;
-		i++;
-	}
-	return (blk_sum);
-
-}
-
-void	print_mode(struct stat filestat)
+static void	print_mode(struct stat filestat)
 {
 	if (S_ISDIR(filestat.st_mode))
 		ft_putchar('d');
@@ -54,14 +36,14 @@ void	print_mode(struct stat filestat)
     ft_putstr(" ");
 }
 
-void	print_link(struct stat filestat)
+static void	print_link(struct stat filestat)
 {
 	ft_putnbr(filestat.st_nlink);
 	ft_putchar('\t');
 
 }
 
-void	print_username(struct stat filestat)
+static void	print_username(struct stat filestat)
 {
 	struct passwd	*user;
 
@@ -70,7 +52,7 @@ void	print_username(struct stat filestat)
 	ft_putstr("  \t   ");
 }
 
-void	print_group(struct stat filestat)
+static void	print_group(struct stat filestat)
 {
 	struct group *usergroup;
 
@@ -83,13 +65,13 @@ void	print_group(struct stat filestat)
 
 }
 
-void	print_size(struct stat filestat)
+static void	print_size(struct stat filestat)
 {
 	ft_putnbr(filestat.st_size);
 	ft_putchar('\t');
 }
 
-void	print_time(struct stat filestat)
+static void	print_time(struct stat filestat)
 {
 	struct timespec	time;
 	char			*str;
@@ -101,7 +83,7 @@ void	print_time(struct stat filestat)
 	ft_strdel(&str);
 }
 
-void	readstat(char *file)
+static void	readstat(char *file)
 {
 	struct stat		filestat;
 
@@ -122,16 +104,8 @@ void	readstat(char *file)
 		print_error(file);
 }
 
-void	print_files_l(char **files)
+void	print_file_l(char **files)
 {
-	if (*files)
-	{
-		ft_putstr("total ");
-		ft_putnbr(totalblksize(files));
-		ft_nl();
-	}
-	while (*files)
-		readstat(*files++);
+    readstat(*files);
 	ft_nl();
 }
-
