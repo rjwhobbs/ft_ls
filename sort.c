@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-size_t	count_names(char **names)
+size_t			count_names(char **names)
 {
 	size_t i;
 
@@ -10,8 +10,7 @@ size_t	count_names(char **names)
 	return (i);
 }
 
-
-static void	sort_lex(char ***names, int n)
+static void		sort_lex(char ***names, int n)
 {
 	char	*temp;
 	int		i;
@@ -35,7 +34,7 @@ static void	sort_lex(char ***names, int n)
 	}
 }
 
-void	sort_rev(char ***names, int n)
+void			sort_rev(char ***names, int n)
 {
 	char	*temp;
 	int		i;
@@ -51,7 +50,8 @@ void	sort_rev(char ***names, int n)
 		n--;
 	}
 }
-void	sort(char ***names, char *ops)
+
+void			sort(char ***names, char *ops)
 {
 	size_t n;
 
