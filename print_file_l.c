@@ -1,14 +1,14 @@
 #include "ft_ls.h"
 
-static void 	print_error(char *file)
+static void		print_error(char *file)
 {
 	ft_putstr("ft_ls: ");
 	ft_putstr(file);
 	ft_putstr(": ");
-	ft_putendl(strerror(errno));	
+	ft_putendl(strerror(errno));
 }
 
-static void	print_mode(struct stat filestat)
+static void		print_mode(struct stat filestat)
 {
 	if (S_ISDIR(filestat.st_mode))
 		ft_putchar('d');
@@ -24,26 +24,25 @@ static void	print_mode(struct stat filestat)
 		ft_putchar('s');
 	else
 		ft_putchar('-');
-    ft_putstr( (filestat.st_mode & S_IRUSR) ? "r" : "-");
-    ft_putstr( (filestat.st_mode & S_IWUSR) ? "w" : "-");
-    ft_putstr( (filestat.st_mode & S_IXUSR) ? "x" : "-");
-    ft_putstr( (filestat.st_mode & S_IRGRP) ? "r" : "-");
-    ft_putstr( (filestat.st_mode & S_IWGRP) ? "w" : "-");
-    ft_putstr( (filestat.st_mode & S_IXGRP) ? "x" : "-");
-    ft_putstr( (filestat.st_mode & S_IROTH) ? "r" : "-");
-    ft_putstr( (filestat.st_mode & S_IWOTH) ? "w" : "-");
-    ft_putstr( (filestat.st_mode & S_IXOTH) ? "x" : "-");
-    ft_putstr(" ");
+	ft_putstr((filestat.st_mode & S_IRUSR) ? "r" : "-");
+	ft_putstr((filestat.st_mode & S_IWUSR) ? "w" : "-");
+	ft_putstr((filestat.st_mode & S_IXUSR) ? "x" : "-");
+	ft_putstr((filestat.st_mode & S_IRGRP) ? "r" : "-");
+	ft_putstr((filestat.st_mode & S_IWGRP) ? "w" : "-");
+	ft_putstr((filestat.st_mode & S_IXGRP) ? "x" : "-");
+	ft_putstr((filestat.st_mode & S_IROTH) ? "r" : "-");
+	ft_putstr((filestat.st_mode & S_IWOTH) ? "w" : "-");
+	ft_putstr((filestat.st_mode & S_IXOTH) ? "x" : "-");
+	ft_putstr(" ");
 }
 
-static void	print_link(struct stat filestat)
+static void		print_link(struct stat filestat)
 {
 	ft_putnbr(filestat.st_nlink);
 	ft_putchar('\t');
-
 }
 
-static void	print_username(struct stat filestat)
+static void		print_username(struct stat filestat)
 {
 	struct passwd	*user;
 
@@ -52,7 +51,7 @@ static void	print_username(struct stat filestat)
 	ft_putstr("  \t   ");
 }
 
-static void	print_group(struct stat filestat)
+static void		print_group(struct stat filestat)
 {
 	struct group *usergroup;
 
@@ -62,16 +61,15 @@ static void	print_group(struct stat filestat)
 	else
 		ft_putstr(usergroup->gr_name);
 	ft_putstr("\t");
-
 }
 
-static void	print_size(struct stat filestat)
+static void		print_size(struct stat filestat)
 {
 	ft_putnbr(filestat.st_size);
 	ft_putchar('\t');
 }
 
-static void	print_time(struct stat filestat)
+static void		print_time(struct stat filestat)
 {
 	struct timespec	time;
 	char			*str;
@@ -83,12 +81,12 @@ static void	print_time(struct stat filestat)
 	ft_strdel(&str);
 }
 
-static void	readstat(char *file)
+static void		readstat(char *file)
 {
 	struct stat		filestat;
 
 	//lstat(file, &filestat);
-	if((lstat(file, &filestat)) != -1)
+	if ((lstat(file, &filestat)) != -1)
 	{
 		print_mode(filestat);
 		print_link(filestat);
@@ -104,8 +102,8 @@ static void	readstat(char *file)
 		print_error(file);
 }
 
-void	print_file_l(char **files)
+void			print_file_l(char **files)
 {
-    readstat(*files);
+	readstat(*files);
 	ft_nl();
 }
