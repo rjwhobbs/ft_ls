@@ -1,8 +1,8 @@
 #include "ft_ls.h"
 
-static void match_times(char ***names,  time_t filetimes[])
+static void		match_times(char ***names, time_t filetimes[])
 {
-	int i;
+	int				i;
 	struct stat		filestat;
 
 	i = 0;
@@ -14,22 +14,20 @@ static void match_times(char ***names,  time_t filetimes[])
 	}
 }
 
-
-
-static void swap_tsec(char **name1, char **name2, time_t *time1, time_t *time2)
+static void		swap_tsec(char **none, char **ntwo, time_t *tone, time_t *ttwo)
 {
-	char *temp;
-	time_t temptime;
+	char			*temp;
+	time_t			temptime;
 
-	temp = *name1;
-	*name1 = *name2;
-	*name2 = temp;
-	temptime = *time1;
-	*time1 = *time2;
-	*time2 = temptime;
+	temp = *none;
+	*none = *ntwo;
+	*ntwo = temp;
+	temptime = *tone;
+	*tone = *ttwo;
+	*ttwo = temptime;
 }
 
-static void swap_tnsec(char **name1, char **name2)
+static void		swap_tnsec(char **name1, char **name2)
 {
 	char		*temp;
 	struct stat	name1stat;
@@ -45,22 +43,22 @@ static void swap_tnsec(char **name1, char **name2)
 	}
 }
 
-void	sort_time(char ***names, int n)
+void			sort_time(char ***names, int n)
 {
-	time_t			filetimes[n];
+	time_t			ftm[n];
 	int				i;
 	int				j;
-	
-	match_times(names, filetimes);
+
+	match_times(names, ftm);
 	i = 0;
 	j = 0;
 	while (j++ < n)
 	{
 		while (i < n - 1)
 		{
-			if (filetimes[i] < filetimes[i + 1])
-				swap_tsec(&(*names)[i], &(*names)[i + 1], &filetimes[i], &filetimes[i + 1]);
-			else if (filetimes[i] == filetimes[i + 1])
+			if (ftm[i] < ftm[i + 1])
+				swap_tsec(&(*names)[i], &(*names)[i + 1], &ftm[i], &ftm[i + 1]);
+			else if (ftm[i] == ftm[i + 1])
 				swap_tnsec(&(*names)[i], &(*names)[i + 1]);
 			i++;
 		}
