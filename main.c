@@ -147,12 +147,12 @@ int	main(int ac, char **av)
 		else if (ft_strchr(ops, 'R') && !ft_strchr(ops, 'l'))
 		{
 			if (!files)
-				print_R("./", ops);
+				print_rec("./", ops);
 			else
 				while (files[i])
 				{
 					//checker(&files[i]);
-					print_R(files[i], ops);
+					print_rec(files[i], ops);
 					i++;
 				}
 		}
@@ -168,7 +168,7 @@ int	main(int ac, char **av)
 				}
 				else
 				{
-					print_R(*files, ops);
+					print_rec(*files, ops);
 					(files)++;
 				}
 			}

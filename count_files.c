@@ -2,10 +2,14 @@
 
 static void 	print_error(void)
 {
-	ft_putstr("ft_ls: ");
-	//ft_putstr(file);
-	ft_putstr(": ");
-	ft_putendl(strerror(errno));	
+	if (errno == 13)
+	{
+		ft_putstr("ft_ls: ");
+		//ft_putstr(file);
+		ft_putstr(": ");
+		ft_putendl(strerror(errno));	
+	}
+	errno = 0;
 }
 
 int count_files(char *dirname, int mode)
