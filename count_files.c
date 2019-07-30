@@ -1,21 +1,21 @@
 #include "ft_ls.h"
 
-static void 	print_error(void)
+static void		print_error(void)
 {
 	if (errno == 13)
 	{
 		ft_putstr("ft_ls: ");
 		//ft_putstr(file);
 		ft_putstr(": ");
-		ft_putendl(strerror(errno));	
+		ft_putendl(strerror(errno));
 	}
 	errno = 0;
 }
 
-int count_files(char *dirname, int mode)
+int				count_files(char *dirname, int mode)
 {
 	DIR				*dir;
-	struct dirent 	*file;
+	struct dirent	*file;
 	int				n;
 
 	n = 0;

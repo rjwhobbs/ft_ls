@@ -1,9 +1,9 @@
 #include "ft_ls.h"
 
-int count_dirs(char *dirname, int mode)
+int	count_dirs(char *dirname, int mode)
 {
 	DIR				*dir;
-	struct dirent 	*file;
+	struct dirent	*file;
 	int				n;
 
 	n = 0;
