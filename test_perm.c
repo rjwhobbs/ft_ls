@@ -1,25 +1,37 @@
 #include "ft_ls.h"
 
+void		print_perm(struct stat filestat);
+
 int main(int ac, char *av[])
 {
-	struct stat 	check;
-	DIR				*dir;
-	struct dirent	*file;
+	struct stat 	filestat;
 
-	if ((dir = opendir(av[1])) == NULL)
-		ft_putendl(strerror(errno));
-	else if ((file = readdir(dir)) == NULL)
-	{
-		ft_putendl(strerror(errno));
-	}
-	int x = lstat(av[1], &check);
-	ft_putnbr(x);
-	ft_nl();
-	if (x < 0)
-		ft_putendl(strerror(errno));
-	else
-		ft_putendl("no error according to lstat");
-	if (dir)
-		closedir(dir);
+	lstat(av[1], &filestat);
+	print_perm(filestat);
+	// if ((filestat.st_mode & S_IXUSR) && (filestat.st_mode & S_ISUID))
+	// 	ft_putchar('s');
+	// else if (!(filestat.st_mode & S_IXUSR) && (filestat.st_mode & S_ISUID))
+	// 	ft_putchar('S');
+	// else if ((filestat.st_mode & S_IXUSR) && !(filestat.st_mode & S_ISUID))
+	// 	ft_putchar('x');
+	// else
+	// 	ft_putchar('-');
+	// if ((filestat.st_mode & S_IXGRP) && (filestat.st_mode & S_ISGID))
+	// 	ft_putchar('s');
+	// else if (!(filestat.st_mode & S_IXGRP) && (filestat.st_mode & S_ISGID))
+	// 	ft_putchar('S');
+	// else if ((filestat.st_mode & S_IXGRP) && !(filestat.st_mode & S_ISGID))
+	// 	ft_putchar('x');
+	// else
+	// 	ft_putchar('-');
+	// if ((filestat.st_mode & S_IXOTH) && (filestat.st_mode & S_ISVTX))
+	// 	ft_putchar('t');
+	// else if (!(filestat.st_mode & S_IXOTH) && (filestat.st_mode & S_ISVTX))
+	// 	ft_putchar('T');
+	// else if ((filestat.st_mode & S_IXOTH) && !(filestat.st_mode & S_ISVTX))
+	// 	ft_putchar('x');
+	// else
+	// 	ft_putchar('-');
+	 ft_nl();
 	return (0);
 }

@@ -24,15 +24,7 @@ static void		print_mode(struct stat filestat)
 		ft_putchar('s');
 	else
 		ft_putchar('-');
-	ft_putstr((filestat.st_mode & S_IRUSR) ? "r" : "-");
-	ft_putstr((filestat.st_mode & S_IWUSR) ? "w" : "-");
-	ft_putstr((filestat.st_mode & S_IXUSR) ? "x" : "-");
-	ft_putstr((filestat.st_mode & S_IRGRP) ? "r" : "-");
-	ft_putstr((filestat.st_mode & S_IWGRP) ? "w" : "-");
-	ft_putstr((filestat.st_mode & S_IXGRP) ? "x" : "-");
-	ft_putstr((filestat.st_mode & S_IROTH) ? "r" : "-");
-	ft_putstr((filestat.st_mode & S_IWOTH) ? "w" : "-");
-	ft_putstr((filestat.st_mode & S_IXOTH) ? "x" : "-");
+	print_perm(filestat);
 	ft_putstr(" ");
 }
 
