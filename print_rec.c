@@ -10,7 +10,7 @@ static void	sort_print(char ***files, char ***dirs, char *dir, char *ops)
 	print_files_l(*files);
 }
 
-void		print_R(char *dir, char *ops)
+void		print_rec(char *dir, char *ops)
 {
 	char **files;
 	char **dirs;
@@ -20,14 +20,14 @@ void		print_R(char *dir, char *ops)
 	files = get_filenames(dir, 'a');
 	dirs = get_dirnames(dir, 'a');
 	temp2 = dirs;
-	sort_print(&files, &dirs, dir, ops);		
+	sort_print(&files, &dirs, dir, ops);
 	if (dirs)
 		while (*dirs)
 		{
-			if (dir[ft_strlen(dir) - 1] != '/') 
-        		*dirs = ft_strjoin("/", *dirs); //Make rev realloc func: leak.
+			if (dir[ft_strlen(dir) - 1] != '/')
+				*dirs = ft_strjoin("/", *dirs); //Make rev realloc func: leak.
 			tempdir = ft_strjoin(dir, *dirs++);
-			print_R(tempdir, ops);
+			print_rec(tempdir, ops);
 			free(tempdir);
 		}
 	if (temp2)

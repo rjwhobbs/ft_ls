@@ -1,12 +1,5 @@
-#include <dirent.h>
 #include "ft_ls.h"
 
-static char	**error(char *dir)
-{
-	ft_putstr_fd(dir, 2);
-	ft_putendl_fd("is not a valid directory", 2);
-	return (NULL);
-}
 static char	**dirnames(char *parentdir)
 {
 	DIR				*dir;
@@ -15,15 +8,16 @@ static char	**dirnames(char *parentdir)
 	char			**dirs;
 	char			**temp;
 
-	n = count_files(parentdir, '-');
+	n = count_dirs(parentdir, '-');
+	if (n < 0)
+		return (NULL);
 	dirs = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = dirs;
-	if ((dir = opendir(parentdir)) == NULL)
-		return (error(parentdir));
+	dir = opendir(parentdir);
 	while ((file = readdir(dir)) != NULL)
 		if (file->d_type == DT_DIR)
 			if (file->d_name[0] != '.')
-				*dirs++ = ft_strjoin(ft_strdup(file->d_name), "/");
+				*dirs++ = ft_strjoin(file->d_name, "/");
 	*dirs = NULL;
 	closedir(dir);
 	dirs = temp;
@@ -39,14 +33,15 @@ static char	**dirnames_all(char *parentdir)
 	char			**temp;
 
 	n = count_dirs(parentdir, 'a');
+	if (n < 0)
+		return (NULL);
 	dirs = (char **)malloc(sizeof(char *) * (n + 1));
 	temp = dirs;
-	if ((dir = opendir(parentdir)) == NULL)
-		return (error(parentdir));
+	dir = opendir(parentdir);
 	while ((file = readdir(dir)) != NULL)
 		if (file->d_type == DT_DIR)
 			if (!ft_strequ(file->d_name, ".") && !ft_strequ(file->d_name, ".."))
-				*dirs++ = ft_strjoin(ft_strdup(file->d_name), "/");
+				*dirs++ = ft_strjoin(file->d_name, "/");
 	*dirs = NULL;
 	closedir(dir);
 	dirs = temp;

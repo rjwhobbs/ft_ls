@@ -24,11 +24,14 @@ static char	*process_flags(char **av[])
 	op = ft_strnew(5);
 	op_position = op;
 	(*av)++;
-	while (op_position && **av && ***av == '-')
+	while (op_position && **av && ***av == '-' && (**av)[1])
 	{
 		(**av)++;
 		if (***av == '-' && !((**av)[1]))
+		{
+			(*av)++;
 			break ;
+		}
 		while (**av && isflag(***av))
 		{
 			if (!ft_strchr(op_position, ***av))
@@ -49,9 +52,12 @@ static char	**process_files(char **av[])
 	char	**files;
 	char	**begining_of_files;
 
+	files = NULL;
 	nfiles = 0;
 	while ((*av)[nfiles])
 		nfiles++;
+	if (nfiles == 0)
+		return (NULL);
 	files = (char **)malloc(sizeof(char *) * (nfiles + 1));
 	if (files == NULL)
 		return (NULL);

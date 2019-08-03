@@ -1,23 +1,37 @@
-#include <dirent.h>
 #include "ft_ls.h"
 
-int count_files(char *dirname, int mode)
+static void		print_error(void)
 {
-	DIR	*dir;
-	struct dirent *file;
-	int	n;
+	if (errno == 13)
+	{
+		ft_putstr("ft_ls: ");
+		//ft_putstr(file);
+		ft_putstr(": ");
+		ft_putendl(strerror(errno));
+	}
+	errno = 0;
+}
+
+int				count_files(char *dirname, int mode)
+{
+	DIR				*dir;
+	struct dirent	*file;
+	int				n;
 
 	n = 0;
 	dir = opendir(dirname);
 	if (dir == NULL)
-		return -1;
+	{
+		print_error();
+		return (-1);
+	}
 	if (mode == 'a')
 		while (readdir(dir))
 			n++;
 	else
 		while ((file = readdir(dir)) != NULL)
 			if (file->d_name[0] != '.')
-			n++;
+				n++;
 	closedir(dir);
 	return (n);
 }

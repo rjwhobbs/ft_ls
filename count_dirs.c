@@ -1,16 +1,15 @@
-#include <dirent.h>
 #include "ft_ls.h"
 
-int count_dirs(char *dirname, int mode)
+int	count_dirs(char *dirname, int mode)
 {
-	DIR	*dir;
-	struct dirent *file;
-	int	n;
+	DIR				*dir;
+	struct dirent	*file;
+	int				n;
 
 	n = 0;
 	dir = opendir(dirname);
 	if (dir == NULL)
-		return -1;
+		return (-1);
 	if (mode == 'a')
 	{
 		while ((file = readdir(dir)) != NULL)

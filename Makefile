@@ -1,12 +1,16 @@
 NAME = ft_ls
 
 SRC = main.c process_args.c sort.c get_filenames.c count_files.c\
-	  get_filenames_d.c count_dirs.c get_dirnames.c print_files.c\
-	  print_R.c
+	  count_dirs.c get_dirnames.c print_files.c\
+	  print_rec.c print_files_l.c strstr_del.c\
+	  print_name.c printdirname.c sort_time.c print_sym_link.c\
+	  print_file_l.c print_perm.c
 
 OBJ = main.o process_args.o sort.o get_filenames.o count_files.o\
-	  get_filenames_d.o count_dirs.o get_dirnames.o print_files.o\
-	  print_R.o
+	  count_dirs.o get_dirnames.o print_files.o\
+	  print_rec.o print_files_l.o strstr_del.o\
+	  print_name.o printdirname.o sort_time.o print_sym_link.o\
+	  print_file_l.o print_perm.o
 
 CFLAGS = -Wall -Werror -Wextra
 LIB = libft/libft.a
