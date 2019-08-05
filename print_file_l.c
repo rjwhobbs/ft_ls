@@ -40,7 +40,10 @@ static void		print_username(struct stat filestat)
 
 	user = getpwuid(filestat.st_uid);
 	ft_putstr(user->pw_name);
-	ft_putstr("  \t   ");
+	if (ft_strlen(user->pw_name) > 10)
+		ft_putstr(" ");
+	else
+		ft_putstr(" \t");
 }
 
 static void		print_group(struct stat filestat)
@@ -49,16 +52,30 @@ static void		print_group(struct stat filestat)
 
 	usergroup = getgrgid(filestat.st_gid);
 	if (usergroup == NULL)
+	{
 		ft_putstr("4000");
-	else
+		ft_putstr("\t\t");
+		return ;
+	}
+	else 
 		ft_putstr(usergroup->gr_name);
+	if (ft_strlen(usergroup->gr_name) < 4)
+		ft_putstr("\t");
+	else if (ft_strlen(usergroup->gr_name) < 8)
+		ft_putstr("   ");
 	ft_putstr("\t");
 }
 
 static void		print_size(struct stat filestat)
 {
-	ft_putnbr(filestat.st_size);
-	ft_putchar('\t');
+	if (!(S_ISBLK(filestat.st_mode)) && !(S_ISCHR(filestat.st_mode)))
+	{
+		ft_putnbr(filestat.st_size);
+		if (filestat.st_size > 9999999)
+			ft_putchar('\t');
+		else
+			ft_putstr("\t\t");
+	}
 }
 
 static void		print_time(struct stat filestat)
@@ -77,13 +94,13 @@ static void		readstat(char *file)
 {
 	struct stat		filestat;
 
-	//lstat(file, &filestat);
 	if ((lstat(file, &filestat)) != -1)
 	{
 		print_mode(filestat);
 		print_link(filestat);
 		print_username(filestat);
 		print_group(filestat);
+		print_devid(filestat);
 		print_size(filestat);
 		print_time(filestat);
 		print_name(file);

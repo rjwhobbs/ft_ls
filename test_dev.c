@@ -1,7 +1,7 @@
 #include "ft_ls.h"
 #include <sys/_types/_dev_t.h>
 #include <stdio.h>
-#include <_types.h>
+//#include <_types.h>
 #include <sys/types.h>
 //#define major(x)        ((int32_t)(((u_int32_t)(x) >> 24) & 0xff))
 //#define minor(x)        ((int32_t)((x) & 0xffffff))

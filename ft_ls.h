@@ -9,6 +9,7 @@
 # include <uuid/uuid.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/types.h>
 
 int		process_args(char *av[], char *operations[], char **files[]);
 int		count_files(char *dirname, int mode);
@@ -27,5 +28,7 @@ void	sort_time(char ***names, int n);
 void    print_sym_link(char *filename, struct stat filestat);
 void	print_file_l(char **files);
 void	print_perm(struct stat filestat);
+void	print_devid(struct stat filestat);
+void	print_name_l(char *file);
 
 #endif

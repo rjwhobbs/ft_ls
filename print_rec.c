@@ -17,8 +17,8 @@ void		print_rec(char *dir, char *ops)
 	char *tempdir;
 	char **temp2;
 
-	files = get_filenames(dir, 'a');
-	dirs = get_dirnames(dir, 'a');
+	files = get_filenames(dir, (ft_strchr(ops, 'a'))? 'a' : '-');
+	dirs = get_dirnames(dir, (ft_strchr(ops, 'a'))? 'a' : '-');
 	temp2 = dirs;
 	sort_print(&files, &dirs, dir, ops);
 	if (dirs)

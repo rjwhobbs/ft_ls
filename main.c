@@ -43,33 +43,86 @@ static void    valid_checker(char **files)
     }
 }
 
-void			noflags_args(char ***files, char *ops)
+void			no_ops_files(char **files)
 {
 	char	**strs;
 	int		i;
 
 	i = 0;
-	sort(files, ops);
-	while (**files)
+	sort(&files, "-");
+	while (*files)
 	{
-		i = 0;
-		ft_putstr(**files);
-		ft_putendl(":");
-		strs = get_filenames(*(*files)++, '-');
-		if (strs)
+		ft_putendl("XXX");
+		if (((*files)[ft_strlen(*files) - 1]) != '/')
 		{
-			sort(&strs, ops);
-			while(strs[i])
-			{
-				print_name(strs[i++]);
-				ft_nl();
-			}
+			print_name(*files);
+			files++;
 			ft_nl();
 		}
-		if (strs)
-			strstr_del(&strs);
+		else
+		{
+			printdirname(*files);
+			strs = get_filenames(*files, '-');
+			ft_putendl(strs[0]);
+			sort(&strs, "-");
+			ft_putendl(strs[0]);
+			while(strs[i])
+			{
+				ft_putendl(strs[i]);
+				i++;
+			}
+			ft_nl();
+			if (strs)
+				strstr_del(&strs);
+			files++;
+		}
 	}
-	exit (0);
+}
+
+void	l_op_no_files(char *ops)
+{
+	char	**strs;
+
+	strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
+	sort(&strs, ops);
+	print_files_l(strs);
+	strstr_del(&strs);
+}
+void		no_files_ops(char *ops)
+{
+	char	**strs;
+	int		i;
+
+	i = 0;
+	strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
+	if (strs) 
+		sort(&strs, ops);
+	while(strs[i])
+		print_name(strs[i++]);
+	strstr_del(&strs);
+}
+
+void	l_op_files(char *ops, char **files)
+{
+	char	**strs;
+
+	sort(&files, ops);
+	while (*files)
+	{
+		if (((*files)[ft_strlen(*files) - 1]) != '/')
+		{
+			print_file_l(files);
+			files++;
+		}
+		else
+		{
+			printdirname(*files);
+			strs = get_filenames(*files++, (ft_strchr(ops, 'a'))? 'a' : '-');
+			sort(&strs, ops);
+			print_files_l(strs);
+			strstr_del(&strs);
+		}
+	}
 }
 
 static void		run_func(char *ops, char ***files)
@@ -82,48 +135,16 @@ static void		run_func(char *ops, char ***files)
 	strs = NULL;
 	dirs = NULL;
 	if (ops[0] && !(ft_strchr(ops, 'l')) && !*files)
-	{
-		strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
-		if (strs) 
-			sort(&strs, ops);
-		while(strs[i])
-		{
-			print_name(strs[i++]);
-			ft_nl();
-		}
-		strstr_del(&strs);
-		exit (0);
-	}
+		no_files_ops(ops);
 	else if (!ops[0] && *files)
-		noflags_args(files, ops);
+		no_ops_files(*files);
 	else if (ft_strchr(ops, 'l') && !*files) 
-	{
-		strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
-		sort(&strs, ops);
-		print_files_l(strs);
-		exit (0);
-	}
+		l_op_no_files(ops);
 	else if (ft_strchr(ops, 'l') && *files) 
-	{
-		sort(files, ops);
-		while (**files)
-		{
-			if (((**files)[ft_strlen(**files) - 1]) != '/')
-			{
-				print_file_l(*files);
-				(*files)++;
-			}
-			else
-			{
-				printdirname(**files);
-				strs = get_filenames(*(*files)++, (ft_strchr(ops, 'a'))? 'a' : '-');
-				sort(&strs, ops);
-				print_files_l(strs);
-				strstr_del(&strs);
-			}
-		}
-		exit (0);
-	}
+		l_op_files(ops, *files);
+	if(*files)
+		strstr_del(files);
+	exit (0);
 }
 
 int	main(int ac, char **av)
@@ -150,11 +171,7 @@ int	main(int ac, char **av)
 				print_rec("./", ops);
 			else
 				while (files[i])
-				{
-					//checker(&files[i]);
-					print_rec(files[i], ops);
-					i++;
-				}
+					print_rec(files[i++], ops);
 		}
 		else if (ft_strchr(ops, 'R') && ft_strchr(ops, 'l') && files)
 		{
@@ -182,7 +199,6 @@ int	main(int ac, char **av)
 		while (*files)
 		{
 			print_name(*files++);
-			ft_nl();
 		}
 	}
 	return (0);
