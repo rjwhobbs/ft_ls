@@ -48,33 +48,25 @@ void			no_ops_files(char **files)
 	char	**strs;
 	int		i;
 
-	i = 0;
 	sort(&files, "-");
 	while (*files)
 	{
-		ft_putendl("XXX");
+		i = 0;
 		if (((*files)[ft_strlen(*files) - 1]) != '/')
 		{
-			print_name(*files);
-			files++;
+			print_name(*files++);
 			ft_nl();
 		}
 		else
 		{
 			printdirname(*files);
-			strs = get_filenames(*files, '-');
-			ft_putendl(strs[0]);
+			strs = get_filenames(*files++, '-');
 			sort(&strs, "-");
-			ft_putendl(strs[0]);
 			while(strs[i])
-			{
-				ft_putendl(strs[i]);
-				i++;
-			}
+				print_name(strs[i++]);
 			ft_nl();
 			if (strs)
 				strstr_del(&strs);
-			files++;
 		}
 	}
 }
