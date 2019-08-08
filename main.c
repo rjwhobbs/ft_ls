@@ -134,7 +134,7 @@ static void		run_func(char *ops, char ***files)
 		l_op_no_files(ops);
 	else if (ft_strchr(ops, 'l') && *files) 
 		l_op_files(ops, *files);
-	if(*files)
+	if(*files)					// Freeing must be done by main, not here.
 		strstr_del(files);
 	exit (0);
 }

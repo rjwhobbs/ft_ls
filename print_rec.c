@@ -7,7 +7,10 @@ static void	sort_print(char ***files, char ***dirs, char *dir, char *ops)
 	if (*files)
 		sort(files, ops);
 	printdirname(dir);
-	print_files_l(*files);
+	if (ft_strchr(ops, 'l'))
+		print_files_l(*files);
+	else
+		print_files(*files);	
 }
 
 void		print_rec(char *dir, char *ops)

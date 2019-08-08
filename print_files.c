@@ -4,5 +4,6 @@ void	print_files(char **files)
 {
 	if (files)
 		while (*files)
-			ft_putendl(*files++);
+			print_name(*files++);
+	ft_nl();
 }

@@ -8,7 +8,7 @@ static void		match_times(char ***names, time_t filetimes[])
 	i = 0;
 	while ((*names)[i])
 	{
-		stat((*names)[i], &filestat);
+		lstat((*names)[i], &filestat);
 		filetimes[i] = filestat.st_mtimespec.tv_sec;
 		i++;
 	}
@@ -33,8 +33,8 @@ static void		swap_tnsec(char **name1, char **name2)
 	struct stat	name1stat;
 	struct stat	name2stat;
 
-	stat(*name1, &name1stat);
-	stat(*name2, &name2stat);
+	lstat(*name1, &name1stat);
+	lstat(*name2, &name2stat);
 	if (name1stat.st_mtimespec.tv_nsec < name2stat.st_mtimespec.tv_nsec)
 	{
 		temp = *name1;
