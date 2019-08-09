@@ -9,7 +9,7 @@ void	printdirname(char *dir)
 	if ((last_slash = ft_strrchr(dir, '/')))
 		if (!(ft_strequ(dir, "./")))
 		{
-			while(temp < last_slash)
+			while (temp < last_slash)
 				ft_putchar(*temp++);
 			ft_putendl(":");
 		}
