@@ -162,6 +162,18 @@ static void		run_func(char *ops, char ***files)
 	exit (0);
 }
 
+// static void		rec_no_l(char *ops, char **files)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	if (!files)
+// 			print_rec("./", ops);
+// 	else
+// 		while (files[i])
+// 			print_rec(files[i++], ops);
+// }
+
 int	main(int ac, char **av)
 {
 	char 			*ops;
@@ -182,6 +194,7 @@ int	main(int ac, char **av)
 			run_func(ops, &files);
 		else if (ft_strchr(ops, 'R') && !ft_strchr(ops, 'l'))
 		{
+			//rec_no_l(ops, files);
 			if (!files)
 				print_rec("./", ops);
 			else
