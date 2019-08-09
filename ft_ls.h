@@ -30,5 +30,6 @@ void	print_file_l(char **files);
 void	print_perm(struct stat filestat);
 void	print_devid(struct stat filestat);
 void	print_name_l(char *file);
+void	print_mode(struct stat filestat);
 
 #endif

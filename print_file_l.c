@@ -8,26 +8,6 @@ static void		print_error(char *file)
 	ft_putendl(strerror(errno));
 }
 
-static void		print_mode(struct stat filestat)
-{
-	if (S_ISDIR(filestat.st_mode))
-		ft_putchar('d');
-	else if (S_ISFIFO(filestat.st_mode))
-		ft_putchar('p');
-	else if (S_ISBLK(filestat.st_mode))
-		ft_putchar('b');
-	else if (S_ISCHR(filestat.st_mode))
-		ft_putchar('c');
-	else if (S_ISLNK(filestat.st_mode))
-		ft_putchar('l');
-	else if (S_ISSOCK(filestat.st_mode))
-		ft_putchar('s');
-	else
-		ft_putchar('-');
-	print_perm(filestat);
-	ft_putstr(" ");
-}
-
 static void		print_link(struct stat filestat)
 {
 	ft_putnbr(filestat.st_nlink);
@@ -42,8 +22,10 @@ static void		print_username(struct stat filestat)
 	ft_putstr(user->pw_name);
 	if (ft_strlen(user->pw_name) > 10)
 		ft_putstr(" ");
+	else if (ft_strlen(user->pw_name) < 8)
+		ft_putstr("\t\t");
 	else
-		ft_putstr(" \t");
+		ft_putstr("\t");
 }
 
 static void		print_group(struct stat filestat)
@@ -63,6 +45,8 @@ static void		print_group(struct stat filestat)
 		ft_putstr("\t");
 	else if (ft_strlen(usergroup->gr_name) < 8)
 		ft_putstr("   ");
+	else if (ft_strlen(usergroup->gr_name) > 10)
+		ft_putstr("\t");
 	ft_putstr("\t");
 }
 
@@ -103,7 +87,7 @@ static void		readstat(char *file)
 		print_devid(filestat);
 		print_size(filestat);
 		print_time(filestat);
-		print_name(file);
+		print_name_l(file);
 		print_sym_link(file, filestat);
 		ft_nl();
 	}

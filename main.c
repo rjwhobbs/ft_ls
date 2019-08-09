@@ -135,7 +135,7 @@ static void		ops_files_no_l(char *ops, char **files)
 		{
 			printdirname(*files);
 			strs = get_filenames(*files++, (ft_strchr(ops, 'a'))? 'a' : '-');
-			sort(&strs, "-");
+			sort(&strs, ops);
 			while(strs[i])
 				print_name(strs[i++]);
 			ft_nl();
