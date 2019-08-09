@@ -117,15 +117,36 @@ void	l_op_files(char *ops, char **files)
 	}
 }
 
-static void		run_func(char *ops, char ***files)
+static void		ops_files_no_l(char *ops, char **files)
 {
 	char	**strs;
-	char	**dirs;
 	int		i;
 
-	i = 0;
-	strs = NULL;
-	dirs = NULL;
+	sort(&files, ops);
+	while (*files)
+	{
+		i = 0;
+		if (((*files)[ft_strlen(*files) - 1]) != '/')
+		{
+			print_name(*files++);
+			ft_nl();
+		}
+		else
+		{
+			printdirname(*files);
+			strs = get_filenames(*files++, (ft_strchr(ops, 'a'))? 'a' : '-');
+			sort(&strs, "-");
+			while(strs[i])
+				print_name(strs[i++]);
+			ft_nl();
+			if (strs)
+				strstr_del(&strs);
+		}
+	}
+}
+
+static void		run_func(char *ops, char ***files)
+{
 	if (ops[0] && !(ft_strchr(ops, 'l')) && !*files)
 		no_files_ops(ops);
 	else if (!ops[0] && *files)
@@ -134,6 +155,8 @@ static void		run_func(char *ops, char ***files)
 		l_op_no_files(ops);
 	else if (ft_strchr(ops, 'l') && *files) 
 		l_op_files(ops, *files);
+	else if (!(ft_strchr(ops, 'l')) && *files)
+		ops_files_no_l(ops, *files);
 	if(*files)					// Freeing must be done by main, not here.
 		strstr_del(files);
 	exit (0);
