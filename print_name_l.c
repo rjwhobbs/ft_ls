@@ -7,5 +7,5 @@ void	print_name_l(char *file)
 	if ((name_ptr = ft_strrchr(file, '/')))
 		ft_putstr(name_ptr + 1);
 	else
-		ft_putstr(file);	
+		ft_putstr(file);
 }

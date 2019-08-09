@@ -2,8 +2,8 @@
 
 void	print_devid(struct stat filestat)
 {
-	u_int32_t maj;
-	int32_t min;
+	u_int32_t	maj;
+	int32_t		min;
 
 	if (S_ISBLK(filestat.st_mode) || S_ISCHR(filestat.st_mode))
 	{
@@ -11,14 +11,14 @@ void	print_devid(struct stat filestat)
 		min = minor(filestat.st_rdev);
 		if (min <= 255)
 		{
-			ft_putnbr(maj);	
+			ft_putnbr(maj);
 			ft_putstr(",\t");
 			ft_putnbr(min);
 			ft_putstr("\t");
 		}
 		else
 		{
-			ft_putnbr(maj);	
+			ft_putnbr(maj);
 			ft_putstr(", ");
 			ft_print_hex(min);
 			ft_putstr("  ");

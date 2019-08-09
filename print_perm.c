@@ -41,10 +41,10 @@ void		print_perm(struct stat filestat)
 	ft_putstr((filestat.st_mode & S_IRUSR) ? "r" : "-");
 	ft_putstr((filestat.st_mode & S_IWUSR) ? "w" : "-");
 	print_ssuid(filestat);
-    ft_putstr((filestat.st_mode & S_IRGRP) ? "r" : "-");
-    ft_putstr((filestat.st_mode & S_IWGRP) ? "w" : "-");
+	ft_putstr((filestat.st_mode & S_IRGRP) ? "r" : "-");
+	ft_putstr((filestat.st_mode & S_IWGRP) ? "w" : "-");
 	print_ssgrp(filestat);
-    ft_putstr((filestat.st_mode & S_IROTH) ? "r" : "-");
-    ft_putstr((filestat.st_mode & S_IWOTH) ? "w" : "-");
+	ft_putstr((filestat.st_mode & S_IROTH) ? "r" : "-");
+	ft_putstr((filestat.st_mode & S_IWOTH) ? "w" : "-");
 	print_sticky(filestat);
 }

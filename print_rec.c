@@ -10,7 +10,7 @@ static void	sort_print(char ***files, char ***dirs, char *dir, char *ops)
 	if (ft_strchr(ops, 'l'))
 		print_files_l(*files);
 	else
-		print_files(*files);	
+		print_files(*files);
 }
 
 void		print_rec(char *dir, char *ops)
@@ -20,8 +20,8 @@ void		print_rec(char *dir, char *ops)
 	char *tempdir;
 	char **temp2;
 
-	files = get_filenames(dir, (ft_strchr(ops, 'a'))? 'a' : '-');
-	dirs = get_dirnames(dir, (ft_strchr(ops, 'a'))? 'a' : '-');
+	files = get_filenames(dir, (ft_strchr(ops, 'a')) ? 'a' : '-');
+	dirs = get_dirnames(dir, (ft_strchr(ops, 'a')) ? 'a' : '-');
 	temp2 = dirs;
 	sort_print(&files, &dirs, dir, ops);
 	if (dirs)
