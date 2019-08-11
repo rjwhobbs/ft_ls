@@ -36,5 +36,10 @@ void	print_username(struct stat filestat);
 void	print_group(struct stat filestat);
 void	print_size(struct stat filestat);
 void	print_time(struct stat filestat);
+void	no_files_ops(char *ops);
+void	no_ops_files(char **files);
+void	l_op_no_files(char *ops);
+void	l_op_files(char *ops, char **files);
+void	ops_files_no_l(char *ops, char **files);
 
 #endif

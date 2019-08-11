@@ -41,7 +41,7 @@ void			readstat(char *file)
 		print_group(filestat);
 		print_devid(filestat);
 		print_size(filestat);
-		print_time(filestat);
+		print_time(filestat); // Our ls can't print correct time on files older than a year.
 		print_name_l(file);
 		print_sym_link(file, filestat);
 		ft_nl();
