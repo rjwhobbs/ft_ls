@@ -16,13 +16,12 @@ static int	isflag(char c)
 	return (0);
 }
 
-static void	*process_flags(char **av[])
+static void	process_flags(char **av[], char **op)
 {
 	char *op_position;
-	char *op;
 
-	op = ft_strnew(5);
-	op_position = op;
+	*op = ft_strnew(5);
+	op_position = *op;
 	(*av)++;
 	while (op_position && **av && ***av == '-' && (**av)[1])
 	{
@@ -35,7 +34,7 @@ static void	*process_flags(char **av[])
 		while (**av && isflag(***av))
 		{
 			if (!ft_strchr(op_position, ***av))
-				*op++ = ***av;
+				*(*op)++ = ***av;
 			(**av)++;
 		}
 		if (!***av)
@@ -43,7 +42,7 @@ static void	*process_flags(char **av[])
 		else if (***av)
 			errors(***av);
 	}
-	return (op_position);
+	*op = op_position;
 }
 
 static char	**process_files(char **av[])
@@ -76,7 +75,7 @@ int			process_args(char *av[], char **operations, char **files[])
 {
 	if (!av || !*av || !operations || !files)
 		return (-1);
-	*operations = process_flags(&av);
+	process_flags(&av, operations);
 	if (!*operations)
 		return (-1);
 	*files = process_files(&av);
