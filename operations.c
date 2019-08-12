@@ -11,10 +11,11 @@ void			no_files_ops(char *ops)
 		sort(&strs, ops);
 	while (strs[i])
 		print_name(strs[i++]);
-	strstr_del(&strs);
+	if (strs)
+		strstr_del(&strs);
 }
 
-void			no_ops_files(char **files) // our ls seems to clash with sys ls when sorting ./ and ../
+void			no_ops_files(char **files)
 {
 	char	**strs;
 	int		i;
@@ -25,20 +26,24 @@ void			no_ops_files(char **files) // our ls seems to clash with sys ls when sort
 		i = 0;
 		if (((*files)[ft_strlen(*files) - 1]) != '/')
 		{
-			print_name(*files++);
+			print_name(*files);
 			ft_nl();
 		}
 		else
 		{
 			printdirname(*files);
-			strs = get_filenames(*files++, '-');
-			sort(&strs, "-");
-			while (strs[i])
-				print_name(strs[i++]);
-			ft_nl();
-			if (strs)
+			if((strs = get_filenames(*files, '-')))
+			{
+				sort(&strs, "-");
+				while (strs[i])
+					print_name(strs[i++]);
+				ft_nl();
 				strstr_del(&strs);
+			}
+			else
+				print_name(*files);
 		}
+		files++;
 	}
 }
 
@@ -67,11 +72,16 @@ void			l_op_files(char *ops, char **files)
 		else
 		{
 			printdirname(*files);
-			strs = get_filenames(*files++, (ft_strchr(ops, 'a')) ? 'a' : '-');
-			sort(&strs, ops);
-			print_files_l(strs);
-			strstr_del(&strs);
+			if((strs = get_filenames(*files, (ft_strchr(ops, 'a')) ? 'a' : '-')))
+			{
+				sort(&strs, ops);
+				print_files_l(strs);
+				strstr_del(&strs);
+			}
+			else
+				print_file_l(files);
 		}
+		files++;
 	}
 }
 
@@ -86,19 +96,23 @@ void			ops_files_no_l(char *ops, char **files)
 		i = 0;
 		if (((*files)[ft_strlen(*files) - 1]) != '/')
 		{
-			print_name(*files++);
+			print_name(*files);
 			ft_nl();
 		}
 		else
 		{
 			printdirname(*files);
-			strs = get_filenames(*files++, (ft_strchr(ops, 'a')) ? 'a' : '-');
-			sort(&strs, ops);
-			while (strs[i])
-				print_name(strs[i++]);
-			ft_nl();
-			if (strs)
+			if((strs = get_filenames(*files, (ft_strchr(ops, 'a')) ? 'a' : '-')))
+			{
+				sort(&strs, ops);
+				while (strs[i])
+					print_name(strs[i++]);
+				ft_nl();
 				strstr_del(&strs);
+			}
+			else
+				print_name(*files);
 		}
+		files++;
 	}
 }

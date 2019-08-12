@@ -4,11 +4,16 @@ static void	sort_print(char ***files, char ***dirs, char *dir, char *ops)
 {
 	if (*dirs)
 		sort(dirs, ops);
-	if (*files)
+	if (files && *files)
 		sort(files, ops);
 	printdirname(dir);
 	if (ft_strchr(ops, 'l'))
-		print_files_l(*files);
+	{
+		if (*files)
+			print_files_l(*files);
+		else
+			print_file_l(&dir);
+	}
 	else
 		print_files(*files);
 }
@@ -35,5 +40,6 @@ void		print_rec(char *dir, char *ops)
 		}
 	if (temp2)
 		strstr_del(&temp2);
-	strstr_del(&files);
+	if (files)
+		strstr_del(&files);
 }
