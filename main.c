@@ -1,12 +1,5 @@
 #include "ft_ls.h"
 
-
-// static void    checker(char **dir)
-// {
-//     if ((*dir)[ft_strlen(*dir) - 1] != '/') 
-//         *dir = ft_strrealloc(*dir, "/");  
-// }
-
 static void 	print_error(char *file)
 {
 	ft_putstr("ft_ls: ");
@@ -60,29 +53,30 @@ static void		run_func(char *ops, char ***files)
 	exit (0);
 }
 
-// static void		rec_no_l(char *ops, char **files)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	if (!files)
-// 			print_rec("./", ops);
-// 	else
-// 		while (files[i])
-// 			print_rec(files[i++], ops);
-// }
+static void		rec_run_func(char *ops, char **files)
+{
+	if (!ft_strchr(ops, 'l'))
+	{
+		if (!files)
+			rec_no_files_no_l(ops);
+		else if (files)
+			rec_files_no_l(ops, files);
+	}
+	else if (ft_strchr(ops, 'l'))
+	{
+		if (!files)
+			rec_no_files_l(ops);
+		else 
+			rec_files_l(ops, files);
+	}
+}
 
 int	main(int ac, char **av)
 {
 	char 			*ops;
 	char 			**files;
-	char 			**dirs;
-	int				i;
-	struct stat		valid_dir;
 
-	dirs = NULL;
 	ops = NULL;
-	i = 0;
 	if (ac > 1)
 	{
 		process_args(av, &ops, &files);
@@ -90,32 +84,8 @@ int	main(int ac, char **av)
 			valid_checker(files); //We still need to free files
 		if (!(ft_strchr(ops, 'R')))
 			run_func(ops, &files);
-		else if (ft_strchr(ops, 'R') && !ft_strchr(ops, 'l'))
-		{
-			//rec_no_l(ops, files);
-			if (!files)
-				print_rec("./", ops);
-			else
-				while (files[i])
-					print_rec(files[i++], ops);
-		}
-		else if (ft_strchr(ops, 'R') && ft_strchr(ops, 'l') && files)
-		{
-			while(*files)
-			{
-				lstat(*files, &valid_dir);
-				if (!(S_ISDIR(valid_dir.st_mode)))
-				{
-					print_file_l(files);
-					(files)++;
-				}
-				else
-				{
-					print_rec(*files, ops);
-					(files)++;
-				}
-			}
-		}
+		else if (ft_strchr(ops, 'R'))
+			rec_run_func(ops, files);
 	}
 	else if (ac == 1)
 	{
@@ -123,9 +93,7 @@ int	main(int ac, char **av)
 		if (files)
 			sort(&files, ops);
 		while (*files)
-		{
 			print_name(*files++);
-		}
 	}
 	return (0);
 }

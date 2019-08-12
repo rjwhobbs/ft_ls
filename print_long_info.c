@@ -31,13 +31,18 @@ void	print_username(struct stat filestat)
 	struct passwd	*user;
 
 	user = getpwuid(filestat.st_uid);
-	ft_putstr(user->pw_name);
-	if (ft_strlen(user->pw_name) > 10)
-		ft_putstr(" ");
-	else if (ft_strlen(user->pw_name) < 8)
-		ft_putstr("\t\t");
+	if (user)
+	{
+		ft_putstr(user->pw_name);
+		if (ft_strlen(user->pw_name) > 10)
+			ft_putstr(" ");
+		else if (ft_strlen(user->pw_name) < 8)
+			ft_putstr("\t\t");
+		else
+			ft_putstr("\t");
+	}
 	else
-		ft_putstr("\t");
+		ft_putstr("501 \t\t");
 }
 
 void	print_group(struct stat filestat)

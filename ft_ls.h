@@ -41,5 +41,9 @@ void	no_ops_files(char **files);
 void	l_op_no_files(char *ops);
 void	l_op_files(char *ops, char **files);
 void	ops_files_no_l(char *ops, char **files);
+void	rec_no_files_no_l(char *ops);
+void	rec_files_no_l(char *ops, char **files);
+void	rec_no_files_l(char *ops);
+void	rec_files_l(char *ops, char **files);
 
 #endif

@@ -12,13 +12,10 @@ static char	**filenames_all(char *dirname)
 	//errno = 0;
 	lstat(dirname, &valid_file);
 	n = count_files(dirname, 'a');
-	if (n < 0 || !(S_ISDIR(valid_file.st_mode)))//why is IS_DIR here now?
+	if (n < 0)
 	{
-		// if (errno == 13)
-		// 	return (NULL);
-		files = (char **)malloc(sizeof(char *) * 2);
-		files[0] = ft_strdup(dirname);
-		files[1] = NULL;
+		files = (char **)malloc(sizeof(char *) * 1);
+		files[0] = NULL;
 		return (files);
 	}
 	files = (char **)malloc(sizeof(char *) * (n + 1));

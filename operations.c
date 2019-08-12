@@ -1,15 +1,15 @@
 #include "ft_ls.h"
 
-void		no_files_ops(char *ops)
+void			no_files_ops(char *ops)
 {
 	char	**strs;
 	int		i;
 
 	i = 0;
-	strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
-	if (strs) 
+	strs = get_filenames("./", (ft_strchr(ops, 'a')) ? 'a' : '-');
+	if (strs)
 		sort(&strs, ops);
-	while(strs[i])
+	while (strs[i])
 		print_name(strs[i++]);
 	strstr_del(&strs);
 }
@@ -33,7 +33,7 @@ void			no_ops_files(char **files) // our ls seems to clash with sys ls when sort
 			printdirname(*files);
 			strs = get_filenames(*files++, '-');
 			sort(&strs, "-");
-			while(strs[i])
+			while (strs[i])
 				print_name(strs[i++]);
 			ft_nl();
 			if (strs)
@@ -42,17 +42,17 @@ void			no_ops_files(char **files) // our ls seems to clash with sys ls when sort
 	}
 }
 
-void	l_op_no_files(char *ops)
+void			l_op_no_files(char *ops)
 {
 	char	**strs;
 
-	strs = get_filenames("./", (ft_strchr(ops, 'a'))? 'a' : '-');
+	strs = get_filenames("./", (ft_strchr(ops, 'a')) ? 'a' : '-');
 	sort(&strs, ops);
 	print_files_l(strs);
 	strstr_del(&strs);
 }
 
-void	l_op_files(char *ops, char **files)
+void			l_op_files(char *ops, char **files)
 {
 	char	**strs;
 
@@ -67,7 +67,7 @@ void	l_op_files(char *ops, char **files)
 		else
 		{
 			printdirname(*files);
-			strs = get_filenames(*files++, (ft_strchr(ops, 'a'))? 'a' : '-');
+			strs = get_filenames(*files++, (ft_strchr(ops, 'a')) ? 'a' : '-');
 			sort(&strs, ops);
 			print_files_l(strs);
 			strstr_del(&strs);
@@ -75,7 +75,7 @@ void	l_op_files(char *ops, char **files)
 	}
 }
 
-void		ops_files_no_l(char *ops, char **files)
+void			ops_files_no_l(char *ops, char **files)
 {
 	char	**strs;
 	int		i;
@@ -92,9 +92,9 @@ void		ops_files_no_l(char *ops, char **files)
 		else
 		{
 			printdirname(*files);
-			strs = get_filenames(*files++, (ft_strchr(ops, 'a'))? 'a' : '-');
+			strs = get_filenames(*files++, (ft_strchr(ops, 'a')) ? 'a' : '-');
 			sort(&strs, ops);
-			while(strs[i])
+			while (strs[i])
 				print_name(strs[i++]);
 			ft_nl();
 			if (strs)
