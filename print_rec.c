@@ -32,8 +32,6 @@ void		print_rec(char *dir, char *ops)
 	if (dirs)
 		while (*dirs)
 		{
-			//if (dir[ft_strlen(dir) - 1] != '/')
-			//	*dirs = ft_strjoin("/", *dirs); //Make rev realloc func: leak.
 			tempdir = ft_strjoin(dir, *dirs++);
 			print_rec(tempdir, ops);
 			free(tempdir);

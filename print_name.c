@@ -7,5 +7,8 @@ void	print_name(char *file)
 	if ((name_ptr = ft_strrchr(file, '/')))
 		ft_putendl(name_ptr + 1);
 	else
+	{
 		ft_putendl(file);
+		ft_nl();
+	}
 }

@@ -1,11 +1,12 @@
 #include "libft/libft.h"
 
-static void	errors(char op)
+static void	errors(char op, char *free_me)
 {
 	ft_putstr_fd("ft_ls: illegal option -- ", 2);
 	ft_putchar_fd(op, 2);
 	ft_putchar_fd('\n', 2);
 	ft_putendl_fd("usage: ft_ls [-Ralrt] [file ...]", 2);
+	free(free_me);
 	exit(0);
 }
 
@@ -40,7 +41,7 @@ static void	process_flags(char **av[], char **op)
 		if (!***av)
 			(*av)++;
 		else if (***av)
-			errors(***av);
+			errors(***av, op_position);
 	}
 	*op = op_position;
 }
@@ -73,8 +74,6 @@ static char	**process_files(char **av[])
 
 int			process_args(char *av[], char **operations, char **files[])
 {
-	if (!av || !*av || !operations || !files)
-		return (-1);
 	process_flags(&av, operations);
 	if (!*operations)
 		return (-1);
