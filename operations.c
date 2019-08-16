@@ -62,10 +62,7 @@ void			l_op_files(char *ops, char **fs)
 	while (*fs)
 	{
 		if (((*fs)[ft_strlen(*fs) - 1]) != '/')
-		{
 			print_file_l(fs);
-			fs++;
-		}
 		else
 		{
 			printdirname(*fs);

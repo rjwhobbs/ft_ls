@@ -45,7 +45,7 @@ static char	**filenames(char *dirname)
 	return (files);
 }
 
-char **get_filenames(char *dirname, int mode)
+char		**get_filenames(char *dirname, int mode)
 {
 	if (mode == 'a')
 		return (filenames_all(dirname));

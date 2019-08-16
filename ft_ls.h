@@ -45,5 +45,6 @@ void	rec_no_files_no_l(char *ops);
 void	rec_files_no_l(char *ops, char **files);
 void	rec_no_files_l(char *ops);
 void	rec_files_l(char *ops, char **files);
+void	deleter(char ***files, char **ops);
 
 #endif

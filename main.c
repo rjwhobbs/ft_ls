@@ -12,7 +12,7 @@ static void	print_error(char *file)
 static void	valid_checker(char **fs)
 {
 	struct stat		f;
-	int     		c;
+	int				c;
 
 	while (*fs)
 	{
@@ -67,14 +67,6 @@ static void	rec_run_func(char *ops, char **files)
 		else
 			rec_files_l(ops, files);
 	}
-}
-
-static void	deleter(char ***files, char **ops)
-{
-	if (ops && *ops)
-		free(*ops);
-	if (files && *files)
-		strstr_del(files);
 }
 
 int			main(int ac, char **av)

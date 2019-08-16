@@ -28,17 +28,12 @@ void			rec_no_files_l(char *ops)
 void			rec_files_l(char *ops, char **files)
 {
 	sort(&files, ops);
-	while(*files)
+	while (*files)
 	{
 		if (((*files)[ft_strlen(*files) - 1]) != '/')
-		{
 			print_file_l(files);
-			(files)++;
-		}
 		else
-		{
 			print_rec(*files, ops);
-			(files)++;
-		}
+		(files)++;
 	}
 }
