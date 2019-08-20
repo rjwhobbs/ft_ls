@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rhobbs <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/08/19 07:41:39 by rhobbs            #+#    #+#              #
+#    Updated: 2019/08/19 11:35:42 by rhobbs           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = ft_ls
 
 SRC = main.c process_args.c sort.c get_filenames.c count_files.c\
@@ -21,8 +33,9 @@ LIB = libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME):
 	@make -C libft/ libft.a
+	gcc $(CFLAGS) -c $(SRC)
 	gcc $(CFLAGS) $(OBJ) $(LIB) -o $(NAME)
 
 libft:

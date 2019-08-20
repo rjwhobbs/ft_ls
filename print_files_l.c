@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_files_l.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhobbs <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 07:45:43 by rhobbs            #+#    #+#             */
+/*   Updated: 2019/08/19 07:45:48 by rhobbs           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 static void		print_error(char *file)
@@ -6,6 +18,7 @@ static void		print_error(char *file)
 	ft_putstr(file);
 	ft_putstr(": ");
 	ft_putendl(strerror(errno));
+	errno = 0;
 }
 
 static int		totalblksize(char **files)
