@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   count_files.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhobbs <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 07:42:45 by rhobbs            #+#    #+#             */
+/*   Updated: 2019/08/19 07:42:50 by rhobbs           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-static void		print_error(void)
+static void		print_error(char *file)
 {
 	if (errno == 13)
 	{
 		ft_putstr("ft_ls: ");
-		//ft_putstr(file);
+		ft_putstr(file);
 		ft_putstr(": ");
 		ft_putendl(strerror(errno));
 	}
@@ -22,7 +34,7 @@ int				count_files(char *dirname, int mode)
 	dir = opendir(dirname);
 	if (dir == NULL)
 	{
-		print_error();
+		print_error(dirname);
 		return (-1);
 	}
 	if (mode == 'a')

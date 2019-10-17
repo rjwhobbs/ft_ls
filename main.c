@@ -1,59 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhobbs <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 07:43:47 by rhobbs            #+#    #+#             */
+/*   Updated: 2019/08/19 07:43:52 by rhobbs           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-static void 	print_error(char *file)
+static void	print_error(char *file)
 {
 	ft_putstr("ft_ls: ");
 	ft_putstr(file);
 	ft_putstr(": ");
-	ft_putendl(strerror(errno));	
+	ft_putendl(strerror(errno));
+	errno = 0;
 }
 
-static void    valid_checker(char **files)
+static void	valid_checker(char **fs)
 {
-	struct stat		valid_file;
-    int     		c;
+	struct stat		f;
+	int				c;
 
-    while (*files)
-    {
-        c = 0;
-        if ((lstat(*files, &valid_file)) == -1)
-        {
-			print_error(*files);
-            ft_strdel(files);
+	while (*fs)
+	{
+		c = 0;
+		if ((lstat(*fs, &f)) == -1)
+		{
+			print_error(*fs);
+			ft_strdel(fs);
 			c++;
-	    }
-		else if (S_ISDIR(valid_file.st_mode) && ((*files)[ft_strlen(*files) - 1]) != '/')
-			*files = ft_strrealloc(*files, "/");
+		}
+		else if (S_ISDIR(f.st_mode) && ((*fs)[ft_strlen(*fs) - 1]) != '/')
+			*fs = ft_strrealloc(*fs, "/");
 		if (c)
 		{
-			while (files[c++])
-				files[c - 2] = files[c - 1];
-            files[c - 2] = NULL;
+			while (fs[c++])
+				fs[c - 2] = fs[c - 1];
+			fs[c - 2] = NULL;
 		}
-		files++;
+		fs++;
 		if (c)
-			files--;
-    }
+			fs--;
+	}
 }
 
-static void		run_func(char *ops, char ***files)
+static void	run_func(char *ops, char **files)
 {
-	if (ops[0] && !(ft_strchr(ops, 'l')) && !*files)
+	if (ops[0] && !(ft_strchr(ops, 'l')) && !files)
 		no_files_ops(ops);
-	else if (!ops[0] && *files)
-		no_ops_files(*files);
-	else if (ft_strchr(ops, 'l') && !*files) 
+	else if (!ops[0] && files)
+		no_ops_files(files);
+	else if (ft_strchr(ops, 'l') && !files)
 		l_op_no_files(ops);
-	else if (ft_strchr(ops, 'l') && *files) 
-		l_op_files(ops, *files);
-	else if (!(ft_strchr(ops, 'l')) && *files)
-		ops_files_no_l(ops, *files);
-	if(*files)					// Freeing must be done by main, not here.
-		strstr_del(files);
-	exit (0);
+	else if (ft_strchr(ops, 'l') && files)
+		l_op_files(ops, files);
+	else if (!(ft_strchr(ops, 'l')) && files)
+		ops_files_no_l(ops, files);
 }
 
-static void		rec_run_func(char *ops, char **files)
+static void	rec_run_func(char *ops, char **files)
 {
 	if (!ft_strchr(ops, 'l'))
 	{
@@ -66,25 +76,26 @@ static void		rec_run_func(char *ops, char **files)
 	{
 		if (!files)
 			rec_no_files_l(ops);
-		else 
+		else
 			rec_files_l(ops, files);
 	}
 }
 
-int	main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	char 			*ops;
-	char 			**files;
+	char		*ops;
+	char		**files;
+	static int	i;
 
 	ops = NULL;
 	if (ac > 1)
 	{
 		process_args(av, &ops, &files);
 		if (files && *files)
-			valid_checker(files); //We still need to free files
+			valid_checker(files);
 		if (!(ft_strchr(ops, 'R')))
-			run_func(ops, &files);
-		else if (ft_strchr(ops, 'R'))
+			run_func(ops, files);
+		else
 			rec_run_func(ops, files);
 	}
 	else if (ac == 1)
@@ -92,8 +103,9 @@ int	main(int ac, char **av)
 		files = get_filenames("./", '-');
 		if (files)
 			sort(&files, ops);
-		while (*files)
-			print_name(*files++);
+		while (files[i])
+			print_name(files[i++]);
 	}
+	deleter(&files, &ops);
 	return (0);
 }

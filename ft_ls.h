@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rhobbs <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/19 07:43:12 by rhobbs            #+#    #+#             */
+/*   Updated: 2019/08/19 07:43:17 by rhobbs           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_LS_H
 # define FT_LS_H
 # include "libft/libft.h"
@@ -45,5 +57,6 @@ void	rec_no_files_no_l(char *ops);
 void	rec_files_no_l(char *ops, char **files);
 void	rec_no_files_l(char *ops);
 void	rec_files_l(char *ops, char **files);
+void	deleter(char ***files, char **ops);
 
 #endif
